@@ -8,8 +8,6 @@ var OFFER_TITLES =[
   'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'
 ];
-//var IMAGE_ADRESS_PHOTOS ='';
-//var PRICE_PER_DAY = [1000, 1000000];
 var OFFER_TYPES =['flat', 'house', 'bungalo'];
 var OFFER_TIMES = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES =['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -27,7 +25,7 @@ var avatarSelection = function(number) {
   } else {return "Нет аватара."};
 }; 
 
-var shortDescription = function(namesDirectory){
+var getRundomNumbers = function(namesDirectory){
     return namesDirectory[getRandomInt( 0, namesDirectory.length-1)];
 };
 
@@ -41,19 +39,19 @@ var getRandomElements = function(arr){
   return randomElements;
 };
 
-var createNewAds = function(){
+var getSimilarAds = function(){
   return {
     author:{
       avatar: avatarSelection(getRandomInt(1,8))
     },
     offer:{
-      title: shortDescription(OFFER_TITLES),
+      title: getRundomNumbers(OFFER_TITLES),
       address: [this.locationNearbyX, this.locationNearbyY],
       price: getRandomInt(1000, 1000000),
-      type: shortDescription(OFFER_TYPES),
+      type: getRundomNumbers(OFFER_TYPES),
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 5),
-      checkin: shortDescription(OFFER_TIMES),
+      checkin: getRundomNumbers(OFFER_TIMES),
       
       features: getRandomElements(OFFER_FEATURES),
       description: '',
