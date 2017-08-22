@@ -15,7 +15,7 @@ var OFFER_TIMES = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES =['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
 var getRandomInt = function (min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min )) + min;
 };
 var locationNearbyX = getRandomInt(300, 900);
 var locationNearbyY = getRandomInt(100, 500);
@@ -28,19 +28,19 @@ var avatarSelection = function(number) {
 }; 
 
 var shortDescription = function(numberTitle, namesDirectory){
-  if (numberTitle <=namesDirectory.length -1){
+  if (numberTitle <namesDirectory.length -1){
     return namesDirectory[numberTitle];
   }
 };
 
-var getRandomArrayElements = function(arr){
+var randomElements = function(arr){
   var arr1=[];
   for (i=0; i < arr.length -1; i++){
     if (Math.random()>0.5){
-      arr1.push(i);
+      arr1.push(arr[i]);
     } 
   }
-  return arr1.length;
+  return arr1;
 };
 
 var createNewAds = function(){
@@ -49,15 +49,15 @@ var createNewAds = function(){
       avatar: avatarSelection(getRandomInt(1,8))
     },
     offer:{
-      title: shortDescription(getRandomInt(0, OFFER_TITLES.length),OFFER_TITLES),
-      address: ['locationNearbyX', 'locationNearbyX'],
+      title: shortDescription(getRandomInt(0, OFFER_TITLES.length-1),OFFER_TITLES),
+      address: [this.locationNearbyX, this.locationNearbyY],
       price: getRandomInt(1000, 1000000),
-      type: shortDescription(getRandomInt(0, OFFER_TYPES.length), OFFER_TYPES),
+      type: shortDescription(getRandomInt(0, OFFER_TYPES.length-1), OFFER_TYPES),
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 5),
-      checkin: shortDescription(getRandomInt(0, OFFER_TIMES.length),OFFER_TIMES),
-      checkout: shortDescription(getRandomInt(0, OFFER_TIMES.length),OFFER_TIMES),
-      features: OFFER_FEATURES[getRandomArrayElements(OFFER_FEATURES)],
+      checkin: shortDescription(getRandomInt(0, OFFER_TIMES.length-1),OFFER_TIMES),
+      
+      features: randomElements(OFFER_FEATURES),
       description: '',
       photos: []
     },
