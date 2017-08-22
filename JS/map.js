@@ -33,7 +33,15 @@ var shortDescription = function(numberTitle, namesDirectory){
   }
 }
 
-var createNewAds = function(){
+var getRandomArrayElements = function(numberArray,arr){
+  for (i=0; i <= arr.length; i++){
+    if (Math.random(numberArray)>0.5){
+      return arr[i];
+    } 
+  }
+}
+
+var createNewAds = function(number, numberTitle, numberArray){
   var newAds = {
     author = {
       avatar: avatarSelection(number)
@@ -47,12 +55,18 @@ var createNewAds = function(){
       guests: getRandomInt(1, 5),
       checkin: shortDescription(numberTitle,TIME_OF_ARRIVAL),
       checkout: shortDescription(numberTitle,TIME_OF_ARRIVAL),
-      features: 
+      features: getRandomArrayElements(numberArray, ADVANTAGES),
+      description: '',
+      photos: []
+    },
+    location = {
+      x: locationNearbyX,
+      y: locationNearbyY
     }
-
   }
   return newAds;
 }
+
 /*var similarAds = function() {
   for (i=0; 
 };*/
