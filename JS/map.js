@@ -49,7 +49,7 @@ var createNewAds = function(number, numberTitle){
     },
     offer:{
       title: shortDescription(numberTitle,TYPES_OF_HOUSING),
-      address: [locationNearbyX, locationNearbyX],
+      address: ['locationNearbyX', 'locationNearbyX'],
       price: getRandomInt(1000, 1000000),
       type: shortDescription(numberTitle, TYPES_OF_ACCOMMODATION),
       rooms: getRandomInt(1, 5),
@@ -65,7 +65,6 @@ var createNewAds = function(number, numberTitle){
       y: locationNearbyY
     }
   }
-  return newAds;
 };
 createNewAds(getRandomInt(1, 8),getRandomInt(1, 8));
 /*var similarAds = function() {
