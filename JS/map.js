@@ -1,4 +1,4 @@
-var TYPES_OF_HOUSING =[
+var OFFER_TITLES =[
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
   'Огромный прекрасный дворец',
@@ -8,11 +8,12 @@ var TYPES_OF_HOUSING =[
   'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'
 ];
-var IMAGE_ADRESS_PHOTOS ='';
+//var IMAGE_ADRESS_PHOTOS ='';
 //var PRICE_PER_DAY = [1000, 1000000];
-var TYPES_OF_ACCOMMODATION =['flat', 'house', 'bungalo'];
-var TIME_OF_ARRIVAL = ['12:00', '13:00', '14:00'];
-var ADVANTAGES =['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var OFFER_TYPES =['flat', 'house', 'bungalo'];
+var OFFER_TIMES = ['12:00', '13:00', '14:00'];
+var OFFER_FEATURES =['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -22,7 +23,7 @@ var locationNearbyY = getRandomInt(100, 500);
 
 var avatarSelection = function(number) {
   if (number <=8 && number>=1){
-    return'img/avatars/user 0'+ number +'.png';
+    return'img/avatars/user0'+ number +'.png';
   } else {return "Нет аватара."};
 }; 
 
@@ -42,21 +43,21 @@ var getRandomArrayElements = function(arr){
   return arr1.length;
 };
 
-var createNewAds = function(number, numberTitle){
+var createNewAds = function(){
   return {
     author:{
-      avatar: avatarSelection(number)
+      avatar: avatarSelection(getRandomInt(1,8))
     },
     offer:{
-      title: shortDescription(numberTitle,TYPES_OF_HOUSING),
+      title: shortDescription(getRandomInt(0, OFFER_TITLES.length),OFFER_TITLES),
       address: ['locationNearbyX', 'locationNearbyX'],
       price: getRandomInt(1000, 1000000),
-      type: shortDescription(numberTitle, TYPES_OF_ACCOMMODATION),
+      type: shortDescription(getRandomInt(0, OFFER_TYPES.length), OFFER_TYPES),
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 5),
-      checkin: shortDescription(numberTitle,TIME_OF_ARRIVAL),
-      checkout: shortDescription(numberTitle,TIME_OF_ARRIVAL),
-      features: ADVANTAGES[getRandomArrayElements(ADVANTAGES)],
+      checkin: shortDescription(getRandomInt(0, OFFER_TIMES.length),OFFER_TIMES),
+      checkout: shortDescription(getRandomInt(0, OFFER_TIMES.length),OFFER_TIMES),
+      features: OFFER_FEATURES[getRandomArrayElements(OFFER_FEATURES)],
       description: '',
       photos: []
     },
@@ -66,8 +67,5 @@ var createNewAds = function(number, numberTitle){
     }
   }
 };
-createNewAds(getRandomInt(1, 8),getRandomInt(1, 8));
-/*var similarAds = function() {
-  for (i=0; 
-};*/
-  
+createNewAds();
+
