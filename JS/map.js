@@ -27,20 +27,18 @@ var avatarSelection = function(number) {
   } else {return "Нет аватара."};
 }; 
 
-var shortDescription = function(numberTitle, namesDirectory){
-  if (numberTitle <namesDirectory.length -1){
-    return namesDirectory[numberTitle];
-  }
+var shortDescription = function(namesDirectory){
+    return namesDirectory[getRandomInt( 0, namesDirectory.length-1)];
 };
 
 var getRandomElements = function(arr){
-  var arr1=[];
+  var randomElements=[];
   for (i=0; i < arr.length -1; i++){
     if (Math.random()>0.5){
-      arr1.push(arr[i]);
+      randomElements.push(arr[i]);
     } 
   }
-  return arr1;
+  return randomElements;
 };
 
 var createNewAds = function(){
@@ -49,13 +47,13 @@ var createNewAds = function(){
       avatar: avatarSelection(getRandomInt(1,8))
     },
     offer:{
-      title: OFFER_TITLES[getRandomInt(0,OFFER_TITLES.length-1)]/*shortDescription(getRandomInt(0, OFFER_TITLES.length-1),OFFER_TITLES)*/,
+      title: shortDescription(OFFER_TITLES),
       address: [this.locationNearbyX, this.locationNearbyY],
       price: getRandomInt(1000, 1000000),
-      type: OFFER_TYPES[getRandomInt(0,OFFER_TYPES.length-1)],
+      type: shortDescription(OFFER_TYPES),
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 5),
-      checkin: OFFER_TIMES[getRandomInt(0,OFFER_TIMES.length-1)],
+      checkin: shortDescription(OFFER_TIMES),
       
       features: getRandomElements(OFFER_FEATURES),
       description: '',
