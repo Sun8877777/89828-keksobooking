@@ -33,7 +33,7 @@ var shortDescription = function(numberTitle, namesDirectory){
   }
 };
 
-var randomElements = function(arr){
+var getRandomElements = function(arr){
   var arr1=[];
   for (i=0; i < arr.length -1; i++){
     if (Math.random()>0.5){
@@ -49,15 +49,15 @@ var createNewAds = function(){
       avatar: avatarSelection(getRandomInt(1,8))
     },
     offer:{
-      title: shortDescription(getRandomInt(0, OFFER_TITLES.length-1),OFFER_TITLES),
+      title: OFFER_TITLES[getRandomInt(0,OFFER_TITLES.length-1)]/*shortDescription(getRandomInt(0, OFFER_TITLES.length-1),OFFER_TITLES)*/,
       address: [this.locationNearbyX, this.locationNearbyY],
       price: getRandomInt(1000, 1000000),
-      type: shortDescription(getRandomInt(0, OFFER_TYPES.length-1), OFFER_TYPES),
+      type: OFFER_TYPES[getRandomInt(0,OFFER_TYPES.length-1)],
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 5),
-      checkin: shortDescription(getRandomInt(0, OFFER_TIMES.length-1),OFFER_TIMES),
+      checkin: OFFER_TIMES[getRandomInt(0,OFFER_TIMES.length-1)],
       
-      features: randomElements(OFFER_FEATURES),
+      features: getRandomElements(OFFER_FEATURES),
       description: '',
       photos: []
     },
@@ -67,5 +67,4 @@ var createNewAds = function(){
     }
   }
 };
-createNewAds();
 
