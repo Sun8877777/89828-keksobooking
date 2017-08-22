@@ -21,30 +21,29 @@ var locationNearbyY = getRandomInt(100, 500);
 
 
 var avatarSelection = function(number) {
-  if (number <=8){
-    IMAGE_ADRESS_PHOTOS ='img/avatars/user 0'+ number +'.png';
-    return IMAGE_ADRESS_PHOTOS;
+  if (number <=8 && number>=1){
+    return'img/avatars/user 0'+ number +'.png';
   } else {return "Нет аватара."};
 }; 
 
 var shortDescription = function(numberTitle, namesDirectory){
-  if (numberTitle <=namesDirectory.length){
+  if (numberTitle <=namesDirectory.length -1){
     return namesDirectory[numberTitle];
   }
 };
 
 var getRandomArrayElements = function(arr){
   var arr1=[];
-  for (i=0; i <= arr.length; i++){
+  for (i=0; i < arr.length -1; i++){
     if (Math.random()>0.5){
-      arr1[i]= i;
+      arr1.push(i);
     } 
   }
   return arr1.length;
 };
 
 var createNewAds = function(number, numberTitle){
-  var newAds = {
+  return {
     author:{
       avatar: avatarSelection(number)
     },
