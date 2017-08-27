@@ -66,20 +66,22 @@ var getSimilarAds = function(){
 
 var LODGE_TEMPLATE = document.querySelector('#lodge-template');
 LODGE_TEMPLATE.classList.remove('hidden');
-
-var templateFragment = document.createDocumentFragment();
-for (var i = 0; i< getSimilarAds().length; i++){
+var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');
+var getAvatarImageWrapper = function(){
   var avatarImageWrapper = document.createElement('div');
   avatarImageWrapper.className = 'pin';
   avatarImageWrapper.style.cssText = 'left:' + getSimilarAds().location.x + 'px; top: '+ getSimilarAds().location.y +'px;'
   
+  return document.createDocumentFragment().appendChild(avatarImageWrapper);
+} 
+   
+var getAvatarImage = function(){  
   var avatarImage = document.createElement('img');
   avatarImage.className = 'rounded';
   avatarImage.setAttribute('width', 40);
   avatarImage.setAttribute('height', 40)
-
-  templateFragment.appendChild(avatarImage);
-  templateFragment.appendChild(avatarImageWrapper);
+  
+  return document.createDocumentFragment().appendChild(avatarImage);
 }
-
+importDynamicSimilarAds.appendChild(getAvatarImageWrapper());
 
