@@ -1,3 +1,4 @@
+//'use strict';
 var OFFER_TITLES =[
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -17,7 +18,6 @@ var getRandomInt = function (min, max) {
 };
 var locationNearbyX = getRandomInt(300, 900);
 var locationNearbyY = getRandomInt(100, 500);
-
 
 var avatarSelection = function(number) {
   if (number <=8 && number>=1){
@@ -63,4 +63,23 @@ var getSimilarAds = function(){
     }
   }
 };
+
+var LODGE_TEMPLATE = document.querySelector('#lodge-template');
+LODGE_TEMPLATE.classList.remove('hidden');
+
+var templateFragment = document.createDocumentFragment();
+for (var i = 0; i< getSimilarAds().length; i++){
+  var avatarImageWrapper = document.createElement('div');
+  avatarImageWrapper.className = 'pin';
+  avatarImageWrapper.style.cssText = 'left:' + getSimilarAds().location.x + 'px; top: '+ getSimilarAds().location.y +'px;'
+  
+  var avatarImage = document.createElement('img');
+  avatarImage.className = 'rounded';
+  avatarImage.setAttribute('width', 40);
+  avatarImage.setAttribute('height', 40)
+
+  templateFragment.appendChild(avatarImage);
+  templateFragment.appendChild(avatarImageWrapper);
+}
+
 
