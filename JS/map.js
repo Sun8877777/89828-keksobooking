@@ -83,5 +83,5 @@ var getAvatarImage = function(){
   
   return document.createDocumentFragment().appendChild(avatarImage);
 }
-importDynamicSimilarAds.appendChild(getAvatarImageWrapper());
+importDynamicSimilarAds.appendChild(getAvatarImageWrapper()) +importDynamicSimilarAds.appendChild(getAvatarImage()) ;
 
