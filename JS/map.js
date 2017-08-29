@@ -73,10 +73,15 @@ var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');//
 
 var generateSimularAds = function(){
   var fragmentSumularAds = document.createDocumentFragment();
-  var firstElementAds;
   for (var i = 0; i <arrSimularAds.length -1; i++){
-    firstElementAds.innerHTML = '<div class="pin" style="left: ' + arrSimularAds[i].location.x + 'px; top: ' + arrSimularAds[i].location.y + 'px><img src="' + arrSimularAds[i].author.avatar + '" class="rounded" width="40" height="40"> </div>';
-    fragmentSumularAds.appendChild(firstElementAds);
+    var avatarImageWrapper = document.createElement('div');
+    avatarImageWrapper.className = 'pin';
+    avatarImageWrapper.style.cssText = 'left:' + arrSimularAds[i].location.x + 'px; top: '+ arrSimularAds[i].location.y +'px;';  
+    avatarImageWrapper.innerHTML = '<img src="' + arrSimularAds[i].author.avatar + '" class="rounded" width="40" height="40">';
+
+    fragmentSumularAds.appendChild(avatarImageWrapper);
+    //fragmentSumularAds.innerHTML = '<div class="pin" style="left: ' + arrSimularAds[i].location.x + 'px; top: ' + arrSimularAds[i].location.y + 'px><img src="' + arrSimularAds[i].author.avatar + '" class="rounded" width="40" height="40"> </div>';
+    //fragmentSumularAds.appendChild(importDynamicSimilarAds);
   }
   return fragmentSumularAds;
 };
