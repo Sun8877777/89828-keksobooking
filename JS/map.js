@@ -12,7 +12,7 @@ var OFFER_TITLES =[
 var OFFER_TYPES =['flat', 'house', 'bungalo'];
 var OFFER_TIMES = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES =['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-
+var qtyAds = 8;
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min )) + min;
 };
@@ -52,7 +52,6 @@ var getSimilarAds = function(){
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 5),
       checkin: getRundomNumbers(OFFER_TIMES),
-      
       features: getRandomElements(OFFER_FEATURES),
       description: '',
       photos: []
@@ -64,24 +63,33 @@ var getSimilarAds = function(){
   }
 };
 
+var arrSimularAds = [];
+for (i=0; i<qtyAds; i++){
+  arrSimularAds[i] = getSimilarAds();
+}
+/*
 var LODGE_TEMPLATE = document.querySelector('#lodge-template');
-LODGE_TEMPLATE.classList.remove('hidden');
 var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');
-var getAvatarImageWrapper = function(){
+
+var getAvatarImageWrapper = function(locationX, locationY, imageAddress){
   var avatarImageWrapper = document.createElement('div');
   avatarImageWrapper.className = 'pin';
-  avatarImageWrapper.style.cssText = 'left:' + getSimilarAds().location.x + 'px; top: '+ getSimilarAds().location.y +'px;'
-  
+  avatarImageWrapper.style.cssText = 'left:' + locationX + 'px; top: '+ locationY +'px;'
+  if (imageAddress) {
+    var getAvatarImage = function(imageAddress){  
+      var avatarImage = document.createElement('img');
+      avatarImage.setAttribute('src',imageAddress);
+      avatarImage.className = 'rounded';
+      avatarImage.setAttribute('width', 40);
+      avatarImage.setAttribute('height', 40)
+      return document.createDocumentFragment().appendChild(avatarImage);
+    }
+  }
   return document.createDocumentFragment().appendChild(avatarImageWrapper);
-} 
-   
-var getAvatarImage = function(){  
-  var avatarImage = document.createElement('img');
-  avatarImage.className = 'rounded';
-  avatarImage.setAttribute('width', 40);
-  avatarImage.setAttribute('height', 40)
-  
-  return document.createDocumentFragment().appendChild(avatarImage);
-}
-importDynamicSimilarAds.appendChild(getAvatarImageWrapper()) +importDynamicSimilarAds.appendChild(getAvatarImage()) ;
+};
+*/
+//getAvatarImageWrapper(getSimilarAds().location.x, getSimilarAds().location.y, getSimilarAds().author.avatar);
+
+
+//importDynamicSimilarAds.appendChild(getAvatarImageWrapper()) +importDynamicSimilarAds.appendChild(getAvatarImage()) ;
 
