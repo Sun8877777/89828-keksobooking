@@ -74,12 +74,20 @@ var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');//
 var generateSimularAds = function(){
   var fragmentSumularAds = document.createDocumentFragment();
   for (var i = 0; i <arrSimularAds.length -1; i++){
-    var avatarImageWrapper = document.createElement('div');
-    avatarImageWrapper.className = 'pin';
-    avatarImageWrapper.style.cssText = 'left:' + arrSimularAds[i].location.x + 'px; top: '+ arrSimularAds[i].location.y +'px;';  
-    avatarImageWrapper.innerHTML = '<img src="' + arrSimularAds[i].author.avatar + '" class="rounded" width="40" height="40">';
+    var avatarImageSimularAds = document.createElement('div');
+    avatarImageSimularAds.className = 'pin';
+    avatarImageSimularAds.style.cssText = 'left:' + arrSimularAds[i].location.x + 'px; top: '+ arrSimularAds[i].location.y +'px;';  
+    var avatarImage = document.createElement('img');
+    avatarImage.setAttribute('src', arrSimularAds[i].author.avatar);
+    avatarImage.className = 'rounded';
+    avatarImage.setAttribute('width', 40);
+    avatarImage.setAttribute('height', 40)
+    
+    avatarImageSimularAds.appendChild(avatarImage);
 
-    fragmentSumularAds.appendChild(avatarImageWrapper);
+    //avatarImageSimularAds.innerHTML = '<img src="' + arrSimularAds[i].author.avatar + '" class="rounded" width="40" height="40">';
+
+    fragmentSumularAds.appendChild(avatarImageSimularAds);
     //fragmentSumularAds.innerHTML = '<div class="pin" style="left: ' + arrSimularAds[i].location.x + 'px; top: ' + arrSimularAds[i].location.y + 'px><img src="' + arrSimularAds[i].author.avatar + '" class="rounded" width="40" height="40"> </div>';
     //fragmentSumularAds.appendChild(importDynamicSimilarAds);
   }
@@ -88,10 +96,10 @@ var generateSimularAds = function(){
 
 importDynamicSimilarAds.appendChild(generateSimularAds());
 
-/*var getAvatarImageWrapper = function(locationX, locationY, imageAddress){
-  var avatarImageWrapper = document.createElement('div');
-  avatarImageWrapper.className = 'pin';
-  avatarImageWrapper.style.cssText = 'left:' + locationX + 'px; top: '+ locationY +'px;'
+/*var getAvatarImageSimularAds = function(locationX, locationY, imageAddress){
+  var avatarImageSimularAds = document.createElement('div');
+  avatarImageSimularAds.className = 'pin';
+  avatarImageSimularAds.style.cssText = 'left:' + locationX + 'px; top: '+ locationY +'px;'
   if (imageAddress) {
     var getAvatarImage = function(imageAddress){  
       var avatarImage = document.createElement('img');
@@ -102,11 +110,11 @@ importDynamicSimilarAds.appendChild(generateSimularAds());
       return document.createDocumentFragment().appendChild(avatarImage);
     }
   }
-  return document.createDocumentFragment().appendChild(avatarImageWrapper);
+  return document.createDocumentFragment().appendChild(avatarImageSimularAds);
 };
 */
-//getAvatarImageWrapper(getSimilarAds().location.x, getSimilarAds().location.y, getSimilarAds().author.avatar);
+//getAvatarImageSimularAds(getSimilarAds().location.x, getSimilarAds().location.y, getSimilarAds().author.avatar);
 
 
-//importDynamicSimilarAds.appendChild(getAvatarImageWrapper()) +importDynamicSimilarAds.appendChild(getAvatarImage()) ;
+//importDynamicSimilarAds.appendChild(getAvatarImageSimularAds()) +importDynamicSimilarAds.appendChild(getAvatarImage()) ;
 
