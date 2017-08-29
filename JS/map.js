@@ -1,4 +1,4 @@
-//'use strict';
+'use strict';
 var OFFER_TITLES =[
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -16,8 +16,6 @@ var qtyAds = 8;
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min )) + min;
 };
-var locationNearbyX = getRandomInt(300, 900);
-var locationNearbyY = getRandomInt(100, 500);
 
 var avatarSelection = function(number) {
   if (number <=8 && number>=1){
@@ -31,7 +29,7 @@ var getRundomNumbers = function(namesDirectory){
 
 var getRandomElements = function(arr){
   var randomElements=[];
-  for (i=0; i < arr.length -1; i++){
+  for (var i=0; i < arr.length -1; i++){
     if (Math.random()>0.5){
       randomElements.push(arr[i]);
     } 
@@ -40,13 +38,15 @@ var getRandomElements = function(arr){
 };
 
 var getSimilarAds = function(){
+  var locationNearbyX = getRandomInt(300, 900);
+  var locationNearbyY = getRandomInt(100, 500);
   return {
     author:{
       avatar: avatarSelection(getRandomInt(1,8))
     },
     offer:{
       title: getRundomNumbers(OFFER_TITLES),
-      address: [this.locationNearbyX, this.locationNearbyY],
+      address: [locationNearbyX, locationNearbyY],
       price: getRandomInt(1000, 1000000),
       type: getRundomNumbers(OFFER_TYPES),
       rooms: getRandomInt(1, 5),
@@ -64,14 +64,26 @@ var getSimilarAds = function(){
 };
 
 var arrSimularAds = [];
-for (i=0; i<qtyAds; i++){
+for (var i=0; i<qtyAds; i++){
   arrSimularAds[i] = getSimilarAds();
-}
-/*
-var LODGE_TEMPLATE = document.querySelector('#lodge-template');
-var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');
+};
 
-var getAvatarImageWrapper = function(locationX, locationY, imageAddress){
+var LODGE_TEMPLATE = document.querySelector('#lodge-template');
+var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');//
+
+var generateSimularAds = function(){
+  var fragmentSumularAds = document.createDocumentFragment();
+  var firstElementAds;
+  for (var i = 0; i <arrSimularAds.length -1; i++){
+    firstElementAds.innerHTML = '<div class="pin" style="left: ' + arrSimularAds[i].location.x + 'px; top: ' + arrSimularAds[i].location.y + 'px><img src="' + arrSimularAds[i].author.avatar + '" class="rounded" width="40" height="40"> </div>';
+    fragmentSumularAds.appendChild(firstElementAds);
+  }
+  return fragmentSumularAds;
+};
+
+importDynamicSimilarAds.appendChild(generateSimularAds());
+
+/*var getAvatarImageWrapper = function(locationX, locationY, imageAddress){
   var avatarImageWrapper = document.createElement('div');
   avatarImageWrapper.className = 'pin';
   avatarImageWrapper.style.cssText = 'left:' + locationX + 'px; top: '+ locationY +'px;'
