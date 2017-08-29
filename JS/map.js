@@ -17,11 +17,12 @@ var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min )) + min;
 };
 
-var avatarSelection = function(number) {
-  if (number <=8 && number>=1){
-    return'img/avatars/user0'+ number +'.png';
-  } else {return "Нет аватара."};
-}; 
+var avatarSelection = function() {
+  for (var i = 1; i <qtyAds; i++) {
+      return'img/avatars/user0'+ i +'.png';
+    }
+    return "Нет аватара."  
+  };
 
 var getRundomNumbers = function(namesDirectory){
     return namesDirectory[getRandomInt( 0, namesDirectory.length-1)];
@@ -42,7 +43,7 @@ var getSimilarAds = function(){
   var locationNearbyY = getRandomInt(100, 500);
   return {
     author:{
-      avatar: avatarSelection(getRandomInt(1,8))
+      avatar: avatarSelection()
     },
     offer:{
       title: getRundomNumbers(OFFER_TITLES),
@@ -73,7 +74,7 @@ var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');//
 
 var generateSimularAds = function(){
   var fragmentSumularAds = document.createDocumentFragment();
-  for (var i = 0; i <arrSimularAds.length -1; i++){
+  for (var i = 0; i <arrSimularAds.length; i++){
     var avatarImageSimularAds = document.createElement('div');
     avatarImageSimularAds.className = 'pin';
     avatarImageSimularAds.style.cssText = 'left:' + arrSimularAds[i].location.x + 'px; top: '+ arrSimularAds[i].location.y +'px;';  
