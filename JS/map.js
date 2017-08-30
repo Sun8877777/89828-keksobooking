@@ -87,30 +87,30 @@ var generateSimularAds = function(){
 
 importDynamicSimilarAds.appendChild(generateSimularAds());
 
+var getLodgeTypes = function(arrayTypes){ //для генерирования 
+  if (arrayTypes==='flat') {
+    return 'Квартира';
+  }else if (arrayTypes==='house') {
+    return 'Дом';
+  }else if (arrayTypes==='bungalo') {
+    return 'Бунгало';
+  }
+};
+
+var getLodgeFeatures = function(arrayFeatures){
+  var fraghmentFeatures = document.createDocumentFragment();
+  for (var i = 0; i < arrayFeatures.offer.features.length; i++){
+    var featuresElement = document.createElement(span);
+    featuresElement.className = 'feature__image feature__image--'+ arrayFeatures.offer.features[i];
+    fraghmentFeatures.appendChild(featuresElement);
+  }
+  return fraghmentFeatures;
+};
+
+
 var LODGE_TEMPLATE = document.querySelector('#lodge-template').content;
 var setNewDialogPanel = function(array) {
   var elementDialogPanel = LODGE_TEMPLATE.cloneNode(true);
-  
-  var getLodgeTypes = function(arrayTypes){
-    if (arrayTypes==='flat') {
-      return 'Квартира';
-    }else if (arrayTypes==='house') {
-      return 'Дом';
-    }else if (arrayTypes==='bungalo') {
-      return 'Бунгало';
-    }
-  };
-
-  var getLodgeFeatures = function(arrayFeatures){
-    var fraghmentFeatures = document.createDocumentFragment();
-    for (var i = 0; i < arrayFeatures.offer.features.length; i++){
-      var featuresElement = document.createElement(span);
-      featuresElement.className = 'feature__image feature__image--'+ arrayFeatures.offer.features[i];
-      fraghmentFeatures.appendChild(featuresElement);
-    }
-    return fraghmentFeatures;
-  };
-
   elementDialogPanel.querySelector('.lodge__title') = array.offer.title;
   elementDialogPanel.querySelector('.lodge__address') = array.offer.address;
   elementDialogPanel.querySelector('.lodge__price') = array.offer.price+'&#x20bd;/ночь';
@@ -124,8 +124,6 @@ var setNewDialogPanel = function(array) {
 
 var DIALOG_PANEL = document.querySelector('.dialog__panel');
 var fragmentDialogPanel = document.createDocumentFragment();
-for (var i = 0; i <arrSimularAds.length; i++){
-  fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[i]));
-};
+fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[0]));
 
 DIALOG_PANEL.appendChild(fragmentDialogPanel);
