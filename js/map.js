@@ -107,21 +107,26 @@ var getLodgeFeatures = function(arrayFeatures){ //для получения сп
   return fraghmentFeatures;
 };
 
+var DIALOG_TITLE_IMAGE = document.querySelector('.dialog__title > img');
 var LODGE_TEMPLATE = document.querySelector('#lodge-template').content;
 var setNewDialogPanel = function(array) {
   var elementDialogPanel = LODGE_TEMPLATE.cloneNode(true);
   elementDialogPanel.querySelector('.lodge__title').textContent = array.offer.title;
   elementDialogPanel.querySelector('.lodge__address').textContent = array.offer.address;
-  elementDialogPanel.querySelector('.lodge__price').textContent = array.offer.price+&#x20bd;/ночь';
+  elementDialogPanel.querySelector('.lodge__price').textContent = array.offer.price + '&#x20bd;' + '/ночь';
   elementDialogPanel.querySelector('.lodge__type').textContent = getLodgeTypes(array.offer.type);
   elementDialogPanel.querySelector('.lodge__rooms-and-guests').textContent = 'Для '+ array.offer.guests +' гостей в '+ array.offer.rooms +' комнатах';
   elementDialogPanel.querySelector('.lodge__checkin-time').textContent = 'Заезд после '+ array.offer.checkin +', выезд до '+ array.offer.checkout;
-  elementDialogPanel.querySelector('.lodge__features').textContent = getLodgeFeatures(array);
+  elementDialogPanel.querySelector('.lodge__features').appendChild(getLodgeFeatures(array));
   elementDialogPanel.querySelector('.lodge__description').textContent = array.offer.description;
+  DIALOG_TITLE_IMAGE.setAttribute('src',  array.author.avatar);
+  
   return elementDialogPanel;
 };
 
 var DIALOG_PANEL = document.querySelector('.dialog__panel');
+
 var fragmentDialogPanel = document.createDocumentFragment();
 fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[0]));
 DIALOG_PANEL.appendChild(fragmentDialogPanel);
+
