@@ -62,9 +62,9 @@ var getSimilarAds = function(){
 };
 
 var arrSimularAds = []; // создаем массив
-for (var i=0; i<qtyAds; i++){
-  arrSimularAds.push(getSimilarAds(i));
-  arrSimularAds[i].author.avatar = getAvatarUrl(i+1)
+for (var indexArr=0; indexArr<qtyAds; indexArr++){
+  arrSimularAds.push(getSimilarAds(indexArr));
+  arrSimularAds[indexArr].author.avatar = getAvatarUrl(indexArr+1)
 };
 
 var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');//
@@ -126,8 +126,15 @@ var setNewDialogPanel = function(array) {
 };
 
 var DIALOG_PANEL = document.querySelector('.dialog__panel');
+var cleanDialogPanel = function(){
+  for (var i = 0; i <DIALOG_PANEL.childNodes.length; i++){
+    DIALOG_PANEL.removeChild(DIALOG_PANEL.childNodes[i]);
+  }
+  return DIALOG_PANEL;
+};
 
 var fragmentDialogPanel = document.createDocumentFragment();
+cleanDialogPanel();
 fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[0]));
 DIALOG_PANEL.appendChild(fragmentDialogPanel);
 //1
