@@ -64,6 +64,7 @@ var getSimilarAds = function(){
 var arrSimularAds = []; // создаем массив
 for (var i=0; i<qtyAds; i++){
   arrSimularAds.push(getSimilarAds(i));
+  arrSimularAds[i].author.avatar = getAvatarUrl(i+1)
 };
 
 var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');//
@@ -113,7 +114,7 @@ var setNewDialogPanel = function(array) {
   var elementDialogPanel = LODGE_TEMPLATE.cloneNode(true);
   elementDialogPanel.querySelector('.lodge__title').textContent = array.offer.title;
   elementDialogPanel.querySelector('.lodge__address').textContent = array.offer.address;
-  elementDialogPanel.querySelector('.lodge__price').textContent = array.offer.price + '&#x20bd;' + '/ночь';
+  elementDialogPanel.querySelector('.lodge__price').innerHTML = array.offer.price + '&#x20bd;' + '/ночь';
   elementDialogPanel.querySelector('.lodge__type').textContent = getLodgeTypes(array.offer.type);
   elementDialogPanel.querySelector('.lodge__rooms-and-guests').textContent = 'Для '+ array.offer.guests +' гостей в '+ array.offer.rooms +' комнатах';
   elementDialogPanel.querySelector('.lodge__checkin-time').textContent = 'Заезд после '+ array.offer.checkin +', выезд до '+ array.offer.checkout;
