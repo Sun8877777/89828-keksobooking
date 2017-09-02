@@ -127,7 +127,7 @@ var setNewDialogPanel = function(array) {
 
 var DIALOG_PANEL = document.querySelector('.dialog__panel');
 var cleanDialogPanel = function(){
-  for (var i = DIALOG_PANEL.childNodes.length - 1; i >=0; --i){
+  for (var i = DIALOG_PANEL.childNodes.length - 1; i >=0; i--){
     DIALOG_PANEL.removeChild(DIALOG_PANEL.childNodes[i]);
   }
   return DIALOG_PANEL;
@@ -136,4 +136,3 @@ cleanDialogPanel();
 var fragmentDialogPanel = document.createDocumentFragment();
 fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[0]));
 DIALOG_PANEL.appendChild(fragmentDialogPanel);
-//1
