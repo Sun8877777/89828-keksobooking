@@ -129,4 +129,4 @@ var DIALOG_PANEL = document.querySelector('.dialog__panel');
 var fragmentDialogPanel = document.createDocumentFragment();
 fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[0]));
 DIALOG_PANEL.appendChild(fragmentDialogPanel);
-
+//1
