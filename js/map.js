@@ -42,9 +42,9 @@ var getRandomElements = function(arr){
 };
 
 var getSimilarAds = function(){
-  var centerTags = WIDTH_LABEL_ADS / 2;
-  var locationNearbyX = getRandomInt(300 + centerTags, 900 - centerTags);
-  var locationNearbyY = getRandomInt(100 + HEIGHT_LABEL_ADS, 500 - HEIGHT_LABEL_ADS);
+  var centerTagsWidth = WIDTH_LABEL_ADS / 2;
+  var locationNearbyX = getRandomInt(300 + centerTagsWidth, 900 - centerTagsWidth);
+  var locationNearbyY = getRandomInt(100 + HEIGHT_LABEL_ADS, 500);
   return {
     author:{
       avatar: getAvatarUrl()
