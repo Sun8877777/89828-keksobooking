@@ -24,7 +24,7 @@ var getRandomInt = function (min, max) {
 };
 
 var getAvatarUrl = function(number) {
-      return'img/avatars/user0'+ number +'.png';
+      return'img/avatars/user0'+ (+number+1) +'.png';
   };
 
 var getRandomElement = function(namesDirectory){
@@ -47,7 +47,7 @@ var getSimilarAds = function(number){
   var locationNearbyY = getRandomInt(100 + HEIGHT_LABEL_ADS, 500);
   return {
     author:{
-      avatar: getAvatarUrl((number + 1)*1 )
+      avatar: getAvatarUrl(number)
     },
     offer:{
       title: getRandomElement(OFFER_TITLES),
