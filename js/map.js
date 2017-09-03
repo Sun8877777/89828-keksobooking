@@ -133,11 +133,11 @@ var cleanDialogPanel = function(){
   return DIALOG_PANEL;
 };
 
-var fragmentDialogPanel = document.createDocumentFragment();
 var renderDialogPanel = function(){
   cleanDialogPanel();
-  fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[0]));
-  return DIALOG_PANEL.appendChild(fragmentDialogPanel);
+  //var fragmentDialogPanel = document.createDocumentFragment();
+  //fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[0]));
+  return DIALOG_PANEL.appendChild(setNewDialogPanel(arrSimularAds[0]));//DIALOG_PANEL.appendChild(fragmentDialogPanel);
 };
 
 renderDialogPanel();
