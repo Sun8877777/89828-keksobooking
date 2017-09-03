@@ -42,8 +42,8 @@ var getRandomElements = function(arr){
 };
 
 var getSimilarAds = function(){
-  var locationNearbyX = (WIDTH_LABEL_ADS / 2) + getRandomInt(300, 900);
-  var locationNearbyY = HEIGHT_LABEL_ADS + getRandomInt(100, 500);
+  var locationNearbyX = getRandomInt(300, 900) - (WIDTH_LABEL_ADS / 2);
+  var locationNearbyY = getRandomInt(100, 500) - HEIGHT_LABEL_ADS;
   return {
     author:{
       avatar: getAvatarUrl()
