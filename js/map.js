@@ -13,6 +13,12 @@ var OFFER_TYPES =['flat', 'house', 'bungalo'];
 var OFFER_TIMES = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES =['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var qtyAds = 8;
+var arrSimularAds = []; // создаем массив
+var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');
+var DIALOG_TITLE_IMAGE = document.querySelector('.dialog__title > img');
+var DIALOG_PANEL = document.querySelector('.dialog__panel');
+var WIDTH_LABEL_ADS = 40;
+var HEIGHT_LABEL_ADS = 40;
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min )) + min;
 };
@@ -36,8 +42,8 @@ var getRandomElements = function(arr){
 };
 
 var getSimilarAds = function(){
-  var locationNearbyX = getRandomInt(300, 900);
-  var locationNearbyY = getRandomInt(100, 500);
+  var locationNearbyX = (WIDTH_LABEL_ADS / 2) + getRandomInt(300, 900);
+  var locationNearbyY = HEIGHT_LABEL_ADS + getRandomInt(100, 500);
   return {
     author:{
       avatar: getAvatarUrl()
@@ -62,15 +68,16 @@ var getSimilarAds = function(){
   }
 };
 
-var arrSimularAds = []; // создаем массив
-for (var indexArr=0; indexArr<qtyAds; indexArr++){
+var createArrSimularAds = function(){
+  for (var indexArr=0; indexArr<qtyAds; indexArr++){
   arrSimularAds.push(getSimilarAds(indexArr));
   arrSimularAds[indexArr].author.avatar = getAvatarUrl(indexArr+1)
+  }
 };
 
-var importDynamicSimilarAds = document.querySelector('.tokyo__pin-map');//
+createArrSimularAds();
 
-var generateSimularAds = function(){
+var renderSimularAds = function(){
   var fragmentSumularAds = document.createDocumentFragment();
   for (var i = 0; i <arrSimularAds.length; i++){
     var avatarImageSimularAds = document.createElement('div');
@@ -79,24 +86,23 @@ var generateSimularAds = function(){
     var avatarImage = document.createElement('img');
     avatarImage.setAttribute('src', arrSimularAds[i].author.avatar);
     avatarImage.className = 'rounded';
-    avatarImage.setAttribute('width', 40);
-    avatarImage.setAttribute('height', 40)   
+    avatarImage.setAttribute('width', WIDTH_LABEL_ADS);
+    avatarImage.setAttribute('height', HEIGHT_LABEL_ADS)   
     avatarImageSimularAds.appendChild(avatarImage);
     fragmentSumularAds.appendChild(avatarImageSimularAds);
   }
   return fragmentSumularAds;
 };
 
-importDynamicSimilarAds.appendChild(generateSimularAds());
+importDynamicSimilarAds.appendChild(renderSimularAds());
 
-var getLodgeTypes = function(arrayTypes){ //для генерирования вида жилья
-  if (arrayTypes==='flat') {
-    return 'Квартира';
-  }else if (arrayTypes==='house') {
-    return 'Дом';
-  }else if (arrayTypes==='bungalo') {
-    return 'Бунгало';
-  }
+var resultObject = {
+  flat: "Квартира",
+  house: "Дом",
+  bungalo: "Бунгало"
+};
+var getLodgeTypes = function(property){ //для генерирования вида жилья
+   return resultObject[property];
 };
 
 var getLodgeFeatures = function(arrayFeatures){ //для получения списка преимуществ
@@ -109,9 +115,8 @@ var getLodgeFeatures = function(arrayFeatures){ //для получения сп
   return fraghmentFeatures;
 };
 
-var DIALOG_TITLE_IMAGE = document.querySelector('.dialog__title > img');
-var LODGE_TEMPLATE = document.querySelector('#lodge-template').content;
 var setNewDialogPanel = function(array) {
+  var LODGE_TEMPLATE = document.querySelector('#lodge-template').content;
   var elementDialogPanel = LODGE_TEMPLATE.cloneNode(true);
   elementDialogPanel.querySelector('.lodge__title').textContent = array.offer.title;
   elementDialogPanel.querySelector('.lodge__address').textContent = array.offer.address;
@@ -122,11 +127,9 @@ var setNewDialogPanel = function(array) {
   elementDialogPanel.querySelector('.lodge__features').appendChild(getLodgeFeatures(array));
   elementDialogPanel.querySelector('.lodge__description').textContent = array.offer.description;
   DIALOG_TITLE_IMAGE.setAttribute('src',  array.author.avatar);
-  
   return elementDialogPanel;
 };
 
-var DIALOG_PANEL = document.querySelector('.dialog__panel');
 var cleanDialogPanel = function(){
   for (var i = DIALOG_PANEL.childNodes.length - 1; i >=0; i--){
     DIALOG_PANEL.removeChild(DIALOG_PANEL.childNodes[i]);
