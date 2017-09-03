@@ -50,6 +50,7 @@ var getSimilarAds = function(){
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 5),
       checkin: getRandomElement(OFFER_TIMES),
+      checkout: getRandomElement(OFFER_TIMES),
       features: getRandomElements(OFFER_FEATURES),
       description: '',
       photos: []
@@ -133,11 +134,8 @@ var cleanDialogPanel = function(){
   return DIALOG_PANEL;
 };
 
-var renderDialogPanel = function(){
-  cleanDialogPanel();
-  //var fragmentDialogPanel = document.createDocumentFragment();
-  //fragmentDialogPanel.appendChild(setNewDialogPanel(arrSimularAds[0]));
-  return DIALOG_PANEL.appendChild(setNewDialogPanel(arrSimularAds[0]));//DIALOG_PANEL.appendChild(fragmentDialogPanel);
+var renderDialogPanel = function(){ //Функция очистки диалога и добавления новых данныъ из массива
+  DIALOG_PANEL.appendChild(setNewDialogPanel(arrSimularAds[0]));
 };
 
 renderDialogPanel();
