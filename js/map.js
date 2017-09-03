@@ -41,13 +41,13 @@ var getRandomElements = function(arr){
   return randomElements;
 };
 
-var getSimilarAds = function(){
+var getSimilarAds = function(number){
   var centerTagsWidth = WIDTH_LABEL_ADS / 2;
   var locationNearbyX = getRandomInt(300 + centerTagsWidth, 900 - centerTagsWidth);
   var locationNearbyY = getRandomInt(100 + HEIGHT_LABEL_ADS, 500);
   return {
     author:{
-      avatar: getAvatarUrl()
+      avatar: getAvatarUrl((number + 1)*1 )
     },
     offer:{
       title: getRandomElement(OFFER_TITLES),
@@ -70,9 +70,9 @@ var getSimilarAds = function(){
 };
 
 var createArrSimularAds = function(){
-  for (var indexArr=0; indexArr<qtyAds; indexArr++){
-  arrSimularAds.push(getSimilarAds(indexArr));
-  arrSimularAds[indexArr].author.avatar = getAvatarUrl(indexArr+1)
+  for (var i=0; i<qtyAds; i++){
+  arrSimularAds.push(getSimilarAds(i));
+  //arrSimularAds[i].author.avatar = getAvatarUrl(i + 1);
   }
 };
 
@@ -139,6 +139,7 @@ var cleanDialogPanel = function(){
 };
 
 var renderDialogPanel = function(){ //Функция очистки диалога и добавления новых данныъ из массива
+  cleanDialogPanel();
   DIALOG_PANEL.appendChild(setNewDialogPanel(arrSimularAds[0]));
 };
 
