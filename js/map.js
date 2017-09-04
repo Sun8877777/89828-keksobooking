@@ -19,33 +19,32 @@ var dialogTitleImage = document.querySelector('.dialog__title > img');
 var dialogPanel = document.querySelector('.dialog__panel');
 var PIN_WIDTH = 40;
 var PIN_HEIGHT = 40;
+var lodgeTypeDescriptions = {
+  flat: "Квартира",
+  house: "Дом",
+  bungalo: "Бунгало"
+};
 
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min )) + min;
 };
 
 var getAvatarUrl = function(number) {
-      return'img/avatars/user0'+ (+number+1) +'.png';
+      return'img/avatars/user0'+ (+number + 1) +'.png';
   };
 
-var getRandomElement = function(namesDirectory){
-    return namesDirectory[getRandomInt( 0, namesDirectory.length-1)];
+var getRandomElement = function(array){
+    return array[getRandomInt( 0, array.length-1)];
 };
 
-var getRandomElements = function(arr){
+var getRandomElements = function(array){
   var randomElements=[];
-  for (var i=0; i < arr.length -1; i++){
+  for (var i=0; i < array.length -1; i++){
     if (Math.random()>0.5){
-      randomElements.push(arr[i]);
+      randomElements.push(array[i]);
     }
   }
   return randomElements;
-};
-
-var lodgeTypeDescriptions = {
-  flat: "Квартира",
-  house: "Дом",
-  bungalo: "Бунгало"
 };
 
 var mockAddData = function(number){
@@ -77,13 +76,15 @@ var mockAddData = function(number){
 };
 
 var mockAdsData = function(){
-  for (var i=0; i<adsCount; i++){
+  for (var i=0; i < adsCount; i++){
   ads.push(mockAddData(i));
   }
 };
 
 var renderAds = function(){
   var fragmentSumularAds = document.createDocumentFragment();
+  //var avatarImageSimularAds = document.createElement('div');
+  //var avatarImage = document.createElement('img');
   for (var i = 0; i <ads.length; i++){
     var avatarImageSimularAds = document.createElement('div');
     avatarImageSimularAds.className = 'pin';
