@@ -140,12 +140,12 @@ var clearDialog = function(array){
   }
 };
 
-var renderDialogPanel = function(){ //Функция очистки диалога и добавления новых данныъ из массива
+var renderDialogPanel = function(number){ //Функция очистки диалога и добавления новых данныъ из массива
   clearDialog(dialogPanel);
-  dialogPanel.appendChild(dialogPanelDOM(ads[0]));
+  dialogPanel.appendChild(dialogPanelDOM(ads[number]));
 };
 
 clearDialog(pinMap);
 mockAdsData();
 renderAds();
-renderDialogPanel();
+renderDialogPanel(0);
