@@ -39,7 +39,7 @@ var getRandomElement = function (array) {
 };
 
 var getRandomElements = function (array) {
-  var randomElements= [];
+  var randomElements = [];
   for (var i = 0; i < array.length - 1; i++) {
     if (Math.random() > 0.5) {
       randomElements.push(array[i]);
@@ -89,7 +89,7 @@ var generatePinsDOM = function () {
   for (var i = 0; i < ads.length; i++) {
     pinBody = document.createElement('div');
     pinBody.className = 'pin';
-    pinBody.style.cssText ='left:' + ads[i].location.x + 'px; top: ' + ads[i].location.y + 'px;';
+    pinBody.style.cssText = 'left:' + ads[i].location.x + 'px; top: ' + ads[i].location.y + 'px;';
     pinImage = document.createElement('img');
     pinImage.setAttribute('src', ads[i].author.avatar);
     pinImage.className = 'rounded';
