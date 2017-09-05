@@ -13,14 +13,14 @@ var OFFER_TYPES = ['flat', 'house', 'bungalo'];
 var OFFER_TIMES = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var adsCount = 8;
-var ads = []; // создаем массив
+var ads = []; //  создаем массив
 var pinMap = document.querySelector('.tokyo__pin-map');
 var dialogTitleImage = document.querySelector('.dialog__title > img');
 var dialogPanel = document.querySelector('.dialog__panel');
 var LODGE_TEMPLATE = document.querySelector('#lodge-template').content;
 var PIN_WIDTH = 40;
 var PIN_HEIGHT = 40;
-var lodgeTypeDescriptions = {
+var lODGE_TYPE_DESCRIPTIONS = {
   flat: "Квартира",
   house: "Дом",
   bungalo: "Бунгало"
@@ -35,7 +35,7 @@ var getAvatarUrl = function(number) {
   };
 
 var getRandomElement = function(array){
-    return array[getRandomInt( 0, array.length-1)];
+    return array[getRandomInt(0, array.length-1)];
 };
 
 var getRandomElements = function(array){
@@ -105,11 +105,11 @@ var renderAds = function(){
   pinMap.appendChild(generatePinsDOM());
 };
 
-var getLodgeTypeDescription = function(lodgeType){ //для генерирования вида жилья
-   return lodgeTypeDescriptions[lodgeType];
+var getLodgeTypeDescription = function(lodgeType){ // для генерирования вида жилья
+   return lODGE_TYPE_DESCRIPTIONS[lodgeType];
 };
 
-var generateLodgeFeaturesDOM = function(arrayFeatures){ //для получения списка преимуществ
+var generateLodgeFeaturesDOM = function(arrayFeatures){ //  для получения списка преимуществ
   var featuresContainer = document.createDocumentFragment();
   var feature;
   for (var i = 0; i < arrayFeatures.offer.features.length; i++){
@@ -140,7 +140,7 @@ var clearDialog = function(array){
   }
 };
 
-var renderDialogPanel = function(number){ //Функция очистки диалога и добавления новых данныъ из массива
+var renderDialogPanel = function(number){ //  Функция очистки диалога и добавления новых данныъ из массива
   clearDialog(dialogPanel);
   dialogPanel.appendChild(dialogPanelDOM(ads[number]));
 };
