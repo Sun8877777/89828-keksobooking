@@ -27,7 +27,7 @@ var LODGE_TYPE_DESCRIPTIONS = {
 };
 
 var getRandomInt = function (min, max) {
-  return Math.floor(Math.random()*(max-min))+min;
+  return Math.floor(Math.random() * (max - min)) + min;
 };
 
 var getAvatarUrl = function (number) {
@@ -35,13 +35,13 @@ var getAvatarUrl = function (number) {
 };
 
 var getRandomElement = function (array) {
-  return array[getRandomInt(0, array.length-1)];
+  return array[getRandomInt(0, array.length - 1)];
 };
 
 var getRandomElements = function (array) {
   var randomElements= [];
   for (var i = 0; i < array.length - 1; i++) {
-    if ( Math.random() > 0.5) {
+    if (Math.random() > 0.5) {
       randomElements.push(array[i]);
     }
   }
@@ -89,7 +89,7 @@ var generatePinsDOM = function () {
   for (var i = 0; i < ads.length; i++) {
     pinBody = document.createElement('div');
     pinBody.className = 'pin';
-    pinBody.style.cssText ='left:'+ads[i].location.x+'px; top: '+ads[i].location.y+'px;';
+    pinBody.style.cssText ='left:' + ads[i].location.x + 'px; top: ' + ads[i].location.y + 'px;';
     pinImage = document.createElement('img');
     pinImage.setAttribute('src', ads[i].author.avatar);
     pinImage.className = 'rounded';
@@ -114,7 +114,7 @@ var generateLodgeFeaturesDOM = function (arrayFeatures) { //  для получ�
   var feature;
   for (var i = 0; i < arrayFeatures.offer.features.length; i++) {
     feature = document.createElement('span');
-    feature.className = 'feature__image feature__image--'+arrayFeatures.offer.features[i];
+    feature.className = 'feature__image feature__image--' + arrayFeatures.offer.features[i];
     featuresContainer.appendChild(feature);
   }
   return featuresContainer;
@@ -126,10 +126,10 @@ var dialogPanelDOM = function (dialogData) {
   elementDialogPanel.querySelector('.lodge__address').textContent = dialogData.offer.address;
   elementDialogPanel.querySelector('.lodge__price').innerHTML = dialogData.offer.price + '&#x20bd;' + '/ночь';
   elementDialogPanel.querySelector('.lodge__type').textContent = getLodgeTypeDescription(dialogData.offer.type);
-  elementDialogPanel.querySelector('.lodge__rooms-and-guests').textContent ='Для '+dialogData.offer.guests+' гостей в '+dialogData.offer.rooms+' комнатах';
-  elementDialogPanel.querySelector('.lodge__checkin-time').textContent ='Заезд после '+dialogData.offer.checkin+', выезд до '+dialogData.offer.checkout;
+  elementDialogPanel.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + dialogData.offer.guests + ' гостей в ' + dialogData.offer.rooms + ' комнатах';
+  elementDialogPanel.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + dialogData.offer.checkin + ', выезд до ' + dialogData.offer.checkout;
   elementDialogPanel.querySelector('.lodge__features').appendChild(generateLodgeFeaturesDOM(dialogData));
-  elementDialogPanel.querySelector('.lodge__description').textContent=dialogData.offer.description;
+  elementDialogPanel.querySelector('.lodge__description').textConten = dialogData.offer.description;
   dialogTitleImage.setAttribute('src', dialogData.author.avatar);
   return elementDialogPanel;
 };
