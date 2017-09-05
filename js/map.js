@@ -77,19 +77,19 @@ var mockAddData = function(number){
 
 var mockAdsData = function(){
   for (var i=0; i < adsCount; i++){
-  ads.push(mockAddData(i));
+    ads.push(mockAddData(i));
   }
 };
 
 var renderAds = function(){
   var fragmentSumularAds = document.createDocumentFragment();
-  //var avatarImageSimularAds = document.createElement('div');
-  //var avatarImage = document.createElement('img');
+  var avatarImageSimularAds;
+  var avatarImage;
   for (var i = 0; i <ads.length; i++){
-    var avatarImageSimularAds = document.createElement('div');
+    avatarImageSimularAds = document.createElement('div');
     avatarImageSimularAds.className = 'pin';
     avatarImageSimularAds.style.cssText = 'left:' + ads[i].location.x + 'px; top: '+ ads[i].location.y +'px;';  
-    var avatarImage = document.createElement('img');
+    avatarImage = document.createElement('img');
     avatarImage.setAttribute('src', ads[i].author.avatar);
     avatarImage.className = 'rounded';
     avatarImage.setAttribute('width', PIN_WIDTH);
@@ -106,8 +106,9 @@ var getLodgeTypeDescription = function(lodgeType){ //для генерирова
 
 var generateLodgeFeaturesDOM = function(arrayFeatures){ //для получения списка преимуществ
   var fraghmentFeatures = document.createDocumentFragment();
+  var featuresElement;
   for (var i = 0; i < arrayFeatures.offer.features.length; i++){
-    var featuresElement = document.createElement('span');
+    featuresElement = document.createElement('span');
     featuresElement.className = 'feature__image feature__image--'+ arrayFeatures.offer.features[i];
     fraghmentFeatures.appendChild(featuresElement);
   }
