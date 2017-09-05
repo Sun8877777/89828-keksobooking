@@ -21,9 +21,9 @@ var LODGE_TEMPLATE = document.querySelector('#lodge-template').content;
 var PIN_WIDTH = 40;
 var PIN_HEIGHT = 40;
 var lODGE_TYPE_DESCRIPTIONS = {
-  flat: "Квартира",
-  house: "Дом",
-  bungalo: "Бунгало"
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalo: 'Бунгало'
 };
 
 var getRandomInt = function (min, max) {
