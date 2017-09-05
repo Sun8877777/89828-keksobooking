@@ -139,12 +139,13 @@ var clearDialog = function(array){
     array.removeChild(array.childNodes[i]);
   }
 };
-clearDialog(pinMap);
+
 var renderDialogPanel = function(){ //Функция очистки диалога и добавления новых данныъ из массива
   clearDialog(dialogPanel);
   dialogPanel.appendChild(generateDialogDOM(ads[0]));
 };
 
+clearDialog(pinMap);
 mockAdsData();
 renderAds();
 renderDialogPanel();
