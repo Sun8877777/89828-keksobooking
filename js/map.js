@@ -81,23 +81,27 @@ var mockAdsData = function(){
   }
 };
 
-var renderAds = function(){
-  var fragmentSumularAds = document.createDocumentFragment();
-  var avatarImageSimularAds;
-  var avatarImage;
+var generatePinsDOM = function(){
+  var adsContainer = document.createDocumentFragment();
+  var pinBody;
+  var pinImage;
   for (var i = 0; i <ads.length; i++){
-    avatarImageSimularAds = document.createElement('div');
-    avatarImageSimularAds.className = 'pin';
-    avatarImageSimularAds.style.cssText = 'left:' + ads[i].location.x + 'px; top: '+ ads[i].location.y +'px;';  
-    avatarImage = document.createElement('img');
-    avatarImage.setAttribute('src', ads[i].author.avatar);
-    avatarImage.className = 'rounded';
-    avatarImage.setAttribute('width', PIN_WIDTH);
-    avatarImage.setAttribute('height', PIN_HEIGHT)   
-    avatarImageSimularAds.appendChild(avatarImage);
-    fragmentSumularAds.appendChild(avatarImageSimularAds);
+    pinBody = document.createElement('div');
+    pinBody.className = 'pin';
+    pinBody.style.cssText = 'left:' + ads[i].location.x + 'px; top: '+ ads[i].location.y +'px;';  
+    pinImage = document.createElement('img');
+    pinImage.setAttribute('src', ads[i].author.avatar);
+    pinImage.className = 'rounded';
+    pinImage.setAttribute('width', PIN_WIDTH);
+    pinImage.setAttribute('height', PIN_HEIGHT)   
+    pinBody.appendChild(pinImage);
+    adsContainer.appendChild(pinBody);
   }
-  return fragmentSumularAds;
+  return adsContainer;
+};
+
+var renderAds = function(){
+  pinMap.appendChild(generatePinsDOM());
 };
 
 var getLodgeTypeDescription = function(lodgeType){ //для генерирования вида жилья
@@ -105,14 +109,14 @@ var getLodgeTypeDescription = function(lodgeType){ //для генерирова
 };
 
 var generateLodgeFeaturesDOM = function(arrayFeatures){ //для получения списка преимуществ
-  var fraghmentFeatures = document.createDocumentFragment();
+  var featuresContainer = document.createDocumentFragment();
   var featuresElement;
   for (var i = 0; i < arrayFeatures.offer.features.length; i++){
     featuresElement = document.createElement('span');
     featuresElement.className = 'feature__image feature__image--'+ arrayFeatures.offer.features[i];
-    fraghmentFeatures.appendChild(featuresElement);
+    featuresContainer.appendChild(featuresElement);
   }
-  return fraghmentFeatures;
+  return featuresContainer;
 };
 
 var generateDialogDOM = function(dialogData) {
@@ -130,18 +134,17 @@ var generateDialogDOM = function(dialogData) {
   return elementDialogPanel;
 };
 
-var clearDialog = function(){
-  for (var i = dialogPanel.childNodes.length - 1; i >=0; i--){
-    dialogPanel.removeChild(dialogPanel.childNodes[i]);
+var clearDialog = function(array){
+  for (var i = array.childNodes.length - 1; i >=0; i--){
+    array.removeChild(array.childNodes[i]);
   }
-  return dialogPanel;
 };
-
+clearDialog(pinMap);
 var renderDialogPanel = function(){ //Функция очистки диалога и добавления новых данныъ из массива
-  clearDialog();
+  clearDialog(dialogPanel);
   dialogPanel.appendChild(generateDialogDOM(ads[0]));
 };
 
 mockAdsData();
-pinMap.appendChild(renderAds());
+renderAds();
 renderDialogPanel();
