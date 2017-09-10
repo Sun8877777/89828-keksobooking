@@ -152,29 +152,28 @@ renderAds();
 
 var pinElement = pinMap.querySelectorAll('.pin');
 var pinElementDialog = document.querySelectorAll('.dialog');
-var dialogClose = document.querySelector('.dialog__close');
-var hoverPinElement = function () {
+var dialogClose = document.querySelectorAll('.dialog__close');
+
+var onPinClick = function () {
   for (var i = 0; i < pinElement.length; i++){
     if (pinElement[i].classList.contains('.pin--active')) {
       pinElement[i].classList.remove('.pin--active');
-    } else {
-      pinElement[i].classList.add('pin--active');
-      renderDialogPanel(i);
     }
+    pinElement[i].classList.add('pin--active');
+    renderDialogPanel(i);
+  }
+};  
+
+var onCloseDialogClick = function () {
+  for (var i = 0; i < dialogClose.length; i++) {
+    if (pinElement[i].classList.contains('.pin--active')) {
+      pinElement[i].classList.remove('.pin--active');
+    }
+    document.removeEventListener('click', onPinClick);
   }
 };
 
-var closeDialogPanel = function () {
-  for (var i = 0; i < pinElement.length; i++){
-    document.removeEventListener('click', hoverPinElement);
-  }
-
+for (var i= 0; i < pinElement.length; i++){
+  pinElement[i].addEventListener('click', onPinClick);
+  //dialogClose[i].addEventListener('click', onCloseDialogClick);
 };
-var evtAds = function () {
-  for (var i = 0; i < pinElement.length; i++){
-    pinElement[i].addEventListener('click', hoverPinElement);
-    dialogClose.addEventListener('click', closeDialogPanel);
-  }
-};
-
-evtAds();
