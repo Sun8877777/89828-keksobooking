@@ -152,28 +152,28 @@ renderAds();
 
 var pinElement = pinMap.querySelectorAll('.pin');
 var pinElementDialog = document.querySelectorAll('.dialog');
-var dialogClose = document.querySelectorAll('.dialog__close');
+var dialogClose = document.querySelector('.dialog__close');
 
 var onPinClick = function () {
   for (var i = 0; i < pinElement.length; i++){
     if (pinElement[i].classList.contains('.pin--active')) {
       pinElement[i].classList.remove('.pin--active');
-    }
-    pinElement[i].classList.add('pin--active');
+    };
+    pinElement[i].classList.add('.pin--active');
     renderDialogPanel(i);
   }
 };  
 
 var onCloseDialogClick = function () {
-  for (var i = 0; i < dialogClose.length; i++) {
+  for (var i = 0; i < pinElementDialog.length; i++) {
     if (pinElement[i].classList.contains('.pin--active')) {
       pinElement[i].classList.remove('.pin--active');
-    }
-    document.removeEventListener('click', onPinClick);
+    };
+    pinElementDialog[i].classList.add('hidden');
   }
 };
 
 for (var i= 0; i < pinElement.length; i++){
   pinElement[i].addEventListener('click', onPinClick);
-  //dialogClose[i].addEventListener('click', onCloseDialogClick);
+  dialogClose.addEventListener('click', onCloseDialogClick);
 };
