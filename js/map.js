@@ -89,6 +89,7 @@ var generatePinsDOM = function () {
   for (var i = 0; i < ads.length; i++) {
     pinBody = document.createElement('div');
     pinBody.className = 'pin';
+    pinBody.setAttribute('data', i+1)
     pinBody.style.cssText = 'left:' + ads[i].location.x + 'px; top: ' + ads[i].location.y + 'px;';
     pinImage = document.createElement('img');
     pinImage.setAttribute('src', ads[i].author.avatar);
@@ -152,22 +153,30 @@ renderAds();
 
 var pinElement = pinMap.querySelectorAll('.pin');
 var pinElementDialog = document.querySelectorAll('.dialog');
-var dialogClose = document.querySelector('.dialog__close');
+var dialogClose = document.querySelectorAll('.dialog__close');
+
+var pinDataNum = function () { 
+  for (var i = 0; i < pinElement.length; i++){
+    pinElementDialog[i].classList.add('hidden');
+    return pinElement[i].getAttribute('data');
+  }
+};
 
 var onPinClick = function () {
-  for (var i = 0; i < pinElement.length; i++){
-    if (pinElement[i].classList.contains('.pin--active')) {
-      pinElement[i].classList.remove('.pin--active');
-    };
-    pinElement[i].classList.add('.pin--active');
-    renderDialogPanel(i);
-  }
+    if (pinElement[pinDataNum()].classList.contains('pin--active')) {
+      pinElement[pinDataNum()].classList.remove('pin--active');
+    } else pinElement[pinDataNum()].classList.add('pin--active');
+    
+    if  (pinElementDialog[pinDataNum()].classList.contains('hidden')) {
+      pinElementDialog[pinDataNum()].classList.remove('hidden');
+      renderDialogPanel(pinDataNum());    
+    }
 };  
 
 var onCloseDialogClick = function () {
   for (var i = 0; i < pinElementDialog.length; i++) {
-    if (pinElement[i].classList.contains('.pin--active')) {
-      pinElement[i].classList.remove('.pin--active');
+    if (pinElement[i].classList.contains('pin--active')) {
+      pinElement[i].classList.remove('pin--active');
     };
     pinElementDialog[i].classList.add('hidden');
   }
@@ -175,5 +184,5 @@ var onCloseDialogClick = function () {
 
 for (var i= 0; i < pinElement.length; i++){
   pinElement[i].addEventListener('click', onPinClick);
-  dialogClose.addEventListener('click', onCloseDialogClick);
+  //dialogClose.addEventListener('click', onCloseDialogClick);
 };
