@@ -89,7 +89,7 @@ var generatePinsDOM = function () {
   for (var i = 0; i < ads.length; i++) {
     pinBody = document.createElement('div');
     pinBody.className = 'pin';
-    pinBody.setAttribute('data', i+1)
+    pinBody.setAttribute('data', i)
     pinBody.style.cssText = 'left:' + ads[i].location.x + 'px; top: ' + ads[i].location.y + 'px;';
     pinImage = document.createElement('img');
     pinImage.setAttribute('src', ads[i].author.avatar);
@@ -155,22 +155,15 @@ var pinElement = pinMap.querySelectorAll('.pin');
 var pinElementDialog = document.querySelectorAll('.dialog');
 var dialogClose = document.querySelectorAll('.dialog__close');
 
-var pinDataNum = function () { 
-  for (var i = 0; i < pinElement.length; i++){
-    pinElementDialog[i].classList.add('hidden');
-    return pinElement[i].getAttribute('data');
-  }
-};
+var onPinClick = function (event) {
+    var pinDataNum = event.currentTarget.getAttribute('data');
 
-var onPinClick = function () {
-    if (pinElement[pinDataNum()].classList.contains('pin--active')) {
-      pinElement[pinDataNum()].classList.remove('pin--active');
-    } else pinElement[pinDataNum()].classList.add('pin--active');
-    
-    if  (pinElementDialog[pinDataNum()].classList.contains('hidden')) {
-      pinElementDialog[pinDataNum()].classList.remove('hidden');
-      renderDialogPanel(pinDataNum());    
-    }
+    if (pinElement[pinDataNum].classList.contains('pin--active')) {
+      pinElement[pinDataNum].classList.remove('pin--active');
+    } else pinElement[pinDataNum].classList.add('pin--active');
+    //pinElementDialog[pinDataNum(i)].classList.remove('.hidden');
+    renderDialogPanel(pinDataNum); 
+  
 };  
 
 var onCloseDialogClick = function () {
