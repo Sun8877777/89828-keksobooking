@@ -149,34 +149,59 @@ var renderDialogPanel = function (number) { //  Функция очистки д
 clearDialog(pinMap);
 mockAdsData();
 renderAds();
-//renderDialogPanel(0);
 
 var pinElement = pinMap.querySelectorAll('.pin');
 var pinElementDialog = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
 
-var onPinClick = function (event) {
-    var pinDataNum = event.currentTarget.getAttribute('data');
-    var pinActive = pinMap.querySelector('.pin--active');
-    if (pinActive) {
-      pinActive.classList.remove('pin--active');
-    };
-    if (pinElementDialog.classList.contains('hidden')){
-      pinElementDialog.classList.remove('hidden')
-    };
-    event.currentTarget.classList.add('pin--active');
-    renderDialogPanel(pinDataNum); 
-};  
-
-var onCloseDialogClick = function (event) {
-  var pinActive = pinMap.querySelector('.pin--active');
-  if (pinActive) {
-    pinActive.classList.remove('pin--active')
-  };
-  pinElementDialog.classList.add('hidden');
+var deactivatePin = function (elem) {
+  var statusPin = elem.querySelector('.pin--active');
+  if (statusPin) {
+    statusPin.classList.remove('pin--active');
+  }
 };
 
+var openDialogPanel = function (elem) {
+  if (elem.classList.contains('hidden')){
+    elem.classList.remove('hidden');
+  } 
+};
+
+var closeDialogPanel = function (elem) {
+  elem.classList.add('hidden')
+};
+
+var getNumbersDataNum = function (dataAttr) { //получение номера из data -атрибута
+  return dataAttr.getAttribute('data');
+};
+
+var onPinClick = function (event) {
+  getNumbersDataNum(event.currentTarget);
+  deactivatePin(pinMap);
+  openDialogPanel(pinElementDialog);
+  event.currentTarget.classList.add('pin--active');
+  renderDialogPanel(getNumbersDataNum(event.currentTarget)); 
+};  
+
+var onCloseDialogClick = function () {
+  deactivatePin(pinMap);
+  closeDialogPanel(pinElementDialog);
+};
+
+var onPinMapClick = function(event){
+  var pin = event.currentTarget;
+  if (pin.classList.contains('pin')) {
+    var pinNumber = getNumbersDataNum(pin);
+    pinElement[pinNumber].addEventListener('click', onPinClick);
+    dialogClose.addEventListener('click', onCloseDialogClick);
+  }
+};
+
+
+/*
 for (var i= 0; i < pinElement.length; i++){
   pinElement[i].addEventListener('click', onPinClick);
   dialogClose.addEventListener('click', onCloseDialogClick);
 };
+*/
+pinMap.addEventListener('click', onPinMapClick);
