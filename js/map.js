@@ -152,30 +152,31 @@ renderAds();
 //renderDialogPanel(0);
 
 var pinElement = pinMap.querySelectorAll('.pin');
-var pinElementDialog = document.querySelectorAll('.dialog');
-var dialogClose = document.querySelectorAll('.dialog__close');
+var pinElementDialog = document.querySelector('.dialog');
+var dialogClose = document.querySelector('.dialog__close');
 
 var onPinClick = function (event) {
     var pinDataNum = event.currentTarget.getAttribute('data');
-
-    if (pinElement[pinDataNum].classList.contains('pin--active')) {
-      pinElement[pinDataNum].classList.remove('pin--active');
-    } else pinElement[pinDataNum].classList.add('pin--active');
-    //pinElementDialog[pinDataNum(i)].classList.remove('.hidden');
+    var pinActive = pinMap.querySelector('.pin--active');
+    if (pinActive) {
+      pinActive.classList.remove('pin--active');
+    };
+    if (pinElementDialog.classList.contains('hidden')){
+      pinElementDialog.classList.remove('hidden')
+    };
+    event.currentTarget.classList.add('pin--active');
     renderDialogPanel(pinDataNum); 
-  
 };  
 
-var onCloseDialogClick = function () {
-  for (var i = 0; i < pinElementDialog.length; i++) {
-    if (pinElement[i].classList.contains('pin--active')) {
-      pinElement[i].classList.remove('pin--active');
-    };
-    pinElementDialog[i].classList.add('hidden');
-  }
+var onCloseDialogClick = function (event) {
+  var pinActive = pinMap.querySelector('.pin--active');
+  if (pinActive) {
+    pinActive.classList.remove('pin--active')
+  };
+  pinElementDialog.classList.add('hidden');
 };
 
 for (var i= 0; i < pinElement.length; i++){
   pinElement[i].addEventListener('click', onPinClick);
-  //dialogClose.addEventListener('click', onCloseDialogClick);
+  dialogClose.addEventListener('click', onCloseDialogClick);
 };
