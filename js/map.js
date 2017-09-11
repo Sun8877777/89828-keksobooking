@@ -176,11 +176,11 @@ var getNumbersDataNum = function (dataAttr) { //получение номера 
 };
 
 var onPinClick = function (event) {
-  getNumbersDataNum(event.currentTarget);
+  var selectPinElement =  getNumbersDataNum(event.currentTarget);
   deactivatePin(pinMap);
   openDialogPanel(pinElementDialog);
   event.currentTarget.classList.add('pin--active');
-  renderDialogPanel(getNumbersDataNum(event.currentTarget)); 
+  renderDialogPanel(selectPinElement); 
 };  
 
 var onCloseDialogClick = function () {
