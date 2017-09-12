@@ -162,16 +162,19 @@ var addActiveElem = function (elem, className) {
   return elem.classList.add(className);
 };
 
+var removeElem = function (elem, className) {
+  return elem.classList.remove(className);
+}
 var deactivatePin = function (elem) {
   var statusPin = elem.querySelector('.pin--active');
   if (statusPin) {
-    statusPin.classList.remove('pin--active');
+    removeElem(statusPin,'pin--active');
   }
 };
 
 var openDialogPanel = function (elem) {
   if (elem.classList.contains('hidden')){
-    elem.classList.remove('hidden');
+    removeElem(elem,'hidden');
   } 
 };
 
