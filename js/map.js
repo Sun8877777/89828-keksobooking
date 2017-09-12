@@ -114,7 +114,7 @@ var getLodgeTypeDescription = function (lodgeType) { // для генериро�
 var generateLodgeFeaturesDOM = function (arrayFeatures) { //  для получения списка преимуществ
   var featuresContainer = document.createDocumentFragment();
   var feature;
-  for (var i = 0; i < arrayFeatures.offer.features.length; i++) {
+  for (var i = 0; i < arrayFeatures.offer.features.length; ++i) {
     feature = document.createElement('span');
     feature.className = 'feature__image feature__image--' + arrayFeatures.offer.features[i];
     featuresContainer.appendChild(feature);
@@ -154,6 +154,8 @@ renderAds();
 var pinElement = pinMap.querySelectorAll('.pin');
 var pinElementDialog = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 dialogClose.setAttribute('tabindex', 0);
 
 var deactivatePin = function (elem) {
@@ -187,7 +189,7 @@ var onPinClick = function (event) {
 };  
 
 var onPinClickPressEnter = function (event) {
-  if (event.keyCode === 13) {
+  if (event.keyCode === ENTER_KEYCODE) {
     onPinClick(event);
   }
 };
@@ -198,20 +200,10 @@ var onCloseDialogClick = function () {
 };
 
 var onCloseDialogClickPressEsc = function (event) {
-  if (event.keyCode === 27) {
+  if (event.keyCode === ESC_KEYCODE) {
     onCloseDialogClick();
   }
-}
-/*
-var onPinMapClick = function(event){
-  var pinSelect = event.current;
-  if (pinSelect.className === 'rounded'){
-    pinSelect = pinSelect.parrentNode;
-  }
-  onPinClick(pinSelect);
-  event.stopPreparation();  
 };
-*/
 
 for (var i= 0; i < pinElement.length; i++){
   pinElement[i].addEventListener('click', onPinClick);
@@ -220,4 +212,4 @@ for (var i= 0; i < pinElement.length; i++){
 
 dialogClose.addEventListener('click', onCloseDialogClick);
 document.addEventListener('keydown', onCloseDialogClickPressEsc);
-//pinMap.addEventListener('click', onPinMapClick);
+
