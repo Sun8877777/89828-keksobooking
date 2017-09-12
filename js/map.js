@@ -175,12 +175,12 @@ var getNumbersDataNum = function (dataAttr) { //получение номера 
   return dataAttr.getAttribute('data');
 };
 
-var onPinClick = function (event) {
-  var selectPinElement =  getNumbersDataNum(event.currentTarget);
+var onPinClick = function (elem) {
+  //var selectPinElement =  getNumbersDataNum(event.currentTarget);
   deactivatePin(pinMap);
   openDialogPanel(pinElementDialog);
-  event.currentTarget.classList.add('pin--active');
-  renderDialogPanel(selectPinElement); 
+  elem.classList.add('pin--active');
+  renderDialogPanel(getNumbersDataNum(elem)); 
 };  
 
 var onCloseDialogClick = function () {
@@ -191,13 +191,11 @@ var onCloseDialogClick = function () {
 var onPinMapClick = function(event){
   var pin = event.currentTarget;
   if (pin.classList.contains('pin')) {
-    var pinNumber = getNumbersDataNum(pin);
-    pinElement[pinNumber].addEventListener('click', onPinClick);
-    dialogClose.addEventListener('click', onCloseDialogClick);
+    onPinClick(pin);
   }
 };
 
-
+dialogClose.addEventListener('click', onCloseDialogClick);
 /*
 for (var i= 0; i < pinElement.length; i++){
   pinElement[i].addEventListener('click', onPinClick);
