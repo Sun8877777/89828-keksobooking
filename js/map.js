@@ -40,7 +40,7 @@ var getRandomElement = function (array) {
 
 var getRandomElements = function (array) {
   var randomElements = [];
-  for (var i = 0; i < array.length - 1; i++) {
+  for (var i = 0; i < array.length; i++) {
     if (Math.random() > 0.5) {
       randomElements.push(array[i]);
     }
@@ -158,6 +158,10 @@ var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 dialogClose.setAttribute('tabindex', 0);
 
+var addActiveElem = function (elem, className) {
+  return elem.classList.add(className);
+};
+
 var deactivatePin = function (elem) {
   var statusPin = elem.querySelector('.pin--active');
   if (statusPin) {
@@ -173,7 +177,6 @@ var openDialogPanel = function (elem) {
 
 var closeDialogPanel = function () {
   pinElementDialog.classList.add('hidden');
-  dialogClose.removeEventListener('keydown', onCloseDialogClickPressEsc);
 };
 
 var getNumbersDataNum = function (dataAttr) { //получение номера из data -атрибута
@@ -184,7 +187,7 @@ var onPinClick = function (event) {
   var selectPinElement =  event.currentTarget;
   deactivatePin(pinMap);
   openDialogPanel(pinElementDialog);
-  selectPinElement.classList.add('pin--active');
+  addActiveElem(selectPinElement, 'pin--active');
   renderDialogPanel(getNumbersDataNum(selectPinElement)); 
 };  
 
@@ -205,11 +208,14 @@ var onCloseDialogClickPressEsc = function (event) {
   }
 };
 
-for (var i= 0; i < pinElement.length; i++){
-  pinElement[i].addEventListener('click', onPinClick);
-  pinElement[i].addEventListener('keydown', onPinClickPressEnter)
+var setEventHandlingPinElem = function () {
+  for (var i= 0; i < pinElement.length; i++){
+    pinElement[i].addEventListener('click', onPinClick);
+    pinElement[i].addEventListener('keydown', onPinClickPressEnter)
+  };
+
+  dialogClose.addEventListener('click', onCloseDialogClick);
+  document.addEventListener('keydown', onCloseDialogClickPressEsc);
 };
 
-dialogClose.addEventListener('click', onCloseDialogClick);
-document.addEventListener('keydown', onCloseDialogClickPressEsc);
-
+setEventHandlingPinElem();
