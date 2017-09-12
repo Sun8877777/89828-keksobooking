@@ -89,13 +89,14 @@ var generatePinsDOM = function () {
   for (var i = 0; i < ads.length; i++) {
     pinBody = document.createElement('div');
     pinBody.className = 'pin';
-    pinBody.setAttribute('data', i)
+    pinBody.setAttribute('data-num', i);
     pinBody.style.cssText = 'left:' + ads[i].location.x + 'px; top: ' + ads[i].location.y + 'px;';
     pinImage = document.createElement('img');
     pinImage.setAttribute('src', ads[i].author.avatar);
     pinImage.className = 'rounded';
     pinImage.setAttribute('width', PIN_WIDTH);
     pinImage.setAttribute('height', PIN_HEIGHT);
+    pinImage.setAttribute('tabindex', 0);
     pinBody.appendChild(pinImage);
     adsContainer.appendChild(pinBody);
   }
@@ -153,6 +154,7 @@ renderAds();
 var pinElement = pinMap.querySelectorAll('.pin');
 var pinElementDialog = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
+dialogClose.setAttribute('tabindex', 0);
 
 var deactivatePin = function (elem) {
   var statusPin = elem.querySelector('.pin--active');
@@ -167,39 +169,55 @@ var openDialogPanel = function (elem) {
   } 
 };
 
-var closeDialogPanel = function (elem) {
-  elem.classList.add('hidden')
+var closeDialogPanel = function () {
+  pinElementDialog.classList.add('hidden');
+  dialogClose.removeEventListener('keydown', onCloseDialogClickPressEsc);
 };
 
 var getNumbersDataNum = function (dataAttr) { //получение номера из data -атрибута
-  return dataAttr.getAttribute('data');
+  return dataAttr.getAttribute('data-num');
 };
 
-var onPinClick = function (elem) {
-  //var selectPinElement =  getNumbersDataNum(event.currentTarget);
+var onPinClick = function (event) {
+  var selectPinElement =  event.currentTarget;
   deactivatePin(pinMap);
   openDialogPanel(pinElementDialog);
-  elem.classList.add('pin--active');
-  renderDialogPanel(getNumbersDataNum(elem)); 
+  selectPinElement.classList.add('pin--active');
+  renderDialogPanel(getNumbersDataNum(selectPinElement)); 
 };  
 
-var onCloseDialogClick = function () {
-  deactivatePin(pinMap);
-  closeDialogPanel(pinElementDialog);
-};
-
-var onPinMapClick = function(event){
-  var pin = event.currentTarget;
-  if (pin.classList.contains('pin')) {
-    onPinClick(pin);
+var onPinClickPressEnter = function (event) {
+  if (event.keyCode === 13) {
+    onPinClick(event);
   }
 };
 
-dialogClose.addEventListener('click', onCloseDialogClick);
+var onCloseDialogClick = function () {
+  deactivatePin(pinMap);
+  closeDialogPanel();
+};
+
+var onCloseDialogClickPressEsc = function (event) {
+  if (event.keyCode === 27) {
+    onCloseDialogClick();
+  }
+}
 /*
-for (var i= 0; i < pinElement.length; i++){
-  pinElement[i].addEventListener('click', onPinClick);
-  dialogClose.addEventListener('click', onCloseDialogClick);
+var onPinMapClick = function(event){
+  var pinSelect = event.current;
+  if (pinSelect.className === 'rounded'){
+    pinSelect = pinSelect.parrentNode;
+  }
+  onPinClick(pinSelect);
+  event.stopPreparation();  
 };
 */
-pinMap.addEventListener('click', onPinMapClick);
+
+for (var i= 0; i < pinElement.length; i++){
+  pinElement[i].addEventListener('click', onPinClick);
+  pinElement[i].addEventListener('keydown', onPinClickPressEnter)
+};
+
+dialogClose.addEventListener('click', onCloseDialogClick);
+document.addEventListener('keydown', onCloseDialogClickPressEsc);
+//pinMap.addEventListener('click', onPinMapClick);
