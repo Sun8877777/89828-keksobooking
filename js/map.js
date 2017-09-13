@@ -137,7 +137,7 @@ var renderLodgeTemplate = function (dialogData) {
   lodgeContents.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + dialogData.offer.guests + ' гостей в ' + dialogData.offer.rooms + ' комнатах';
   lodgeContents.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + dialogData.offer.checkin + ', выезд до ' + dialogData.offer.checkout;
   lodgeContents.querySelector('.lodge__features').appendChild(generateLodgeFeaturesDOM(dialogData));
-  lodgeContents.querySelector('.lodge__description').textConten = dialogData.offer.description;
+  lodgeContents.querySelector('.lodge__description').textContent = dialogData.offer.description;
   //dialogTitleImage.setAttribute('src', dialogData.author.avatar);
   return lodgeContents;
 };
