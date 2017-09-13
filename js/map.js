@@ -158,23 +158,23 @@ var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 dialogClose.setAttribute('tabindex', 0);
 
-var addActiveElem = function (elem, className) {
-  return elem.classList.add(className);
+var getActiveElement = function (element, className) {
+  return element.classList.add(className);
 };
 
-var removeElem = function (elem, className) {
-  return elem.classList.remove(className);
+var getRemoveElement = function (element, className) {
+  return element.classList.remove(className);
 }
-var deactivatePin = function (elem) {
-  var statusPin = elem.querySelector('.pin--active');
+var deactivatePin = function (element) {
+  var statusPin = element.querySelector('.pin--active');
   if (statusPin) {
-    removeElem(statusPin,'pin--active');
+    getRemoveElement(statusPin,'pin--active');
   }
 };
 
-var openDialogPanel = function (elem) {
-  if (elem.classList.contains('hidden')){
-    removeElem(elem,'hidden');
+var renderDialogPanel = function (element) {
+  if (element.classList.contains('hidden')){
+    getRemoveElement(element,'hidden');
   } 
 };
 
@@ -182,15 +182,15 @@ var closeDialogPanel = function () {
   pinElementDialog.classList.add('hidden');
 };
 
-var getNumbersDataNum = function (dataAttr) { //получение номера из data -атрибута
-  return dataAttr.getAttribute('data-num');
+var getNumbersDataNum = function (dataNum) { //получение номера из data -атрибута
+  return dataNum.getAttribute('data-num');
 };
 
 var onPinClick = function (event) {
   var selectPinElement =  event.currentTarget;
   deactivatePin(pinMap);
-  openDialogPanel(pinElementDialog);
-  addActiveElem(selectPinElement, 'pin--active');
+  renderDialogPanel(pinElementDialog);
+  getActiveElement(selectPinElement, 'pin--active');
   renderDialogPanel(getNumbersDataNum(selectPinElement)); 
 };  
 
@@ -200,14 +200,14 @@ var onPinClickPressEnter = function (event) {
   }
 };
 
-var onCloseDialogClick = function () {
+var onDialogCloseClick = function () {
   deactivatePin(pinMap);
   closeDialogPanel();
 };
 
-var onCloseDialogClickPressEsc = function (event) {
+var onCloseDialogPressEsc = function (event) {
   if (event.keyCode === ESC_KEYCODE) {
-    onCloseDialogClick();
+    onDialogCloseClick();
   }
 };
 
@@ -217,8 +217,8 @@ var setEventHandlingPinElem = function () {
     pinElement[i].addEventListener('keydown', onPinClickPressEnter)
   };
 
-  dialogClose.addEventListener('click', onCloseDialogClick);
-  document.addEventListener('keydown', onCloseDialogClickPressEsc);
+  dialogClose.addEventListener('click', onDialogCloseClick);
+  document.addEventListener('keydown', onCloseDialogPressEsc);
 };
 
 setEventHandlingPinElem();
