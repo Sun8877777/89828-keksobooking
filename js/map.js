@@ -47,7 +47,7 @@ var getRandomElement = function (array) {
 
 var getRandomElements = function (array) {
   var randomElements = [];
-  for (var i = 0; i < array.length; i++) {
+  for (var i = 0; i < array.length; ++i) {
     if (Math.random() > 0.5) {
       randomElements.push(array[i]);
     }
@@ -120,7 +120,7 @@ var getLodgeTypeDescription = function (lodgeType) { // для генериро�
 var generateLodgeFeaturesDOM = function (arrayFeatures) { //  для получения списка преимуществ
   var featuresContainer = document.createDocumentFragment();
   var feature;
-  for (var i = 0; i < arrayFeatures.offer.features.length; ++i) {
+  for (var i = 0; i < arrayFeatures.offer.features.length; i++) {
     feature = document.createElement('span');
     feature.className = 'feature__image feature__image--' + arrayFeatures.offer.features[i];
     featuresContainer.appendChild(feature);
