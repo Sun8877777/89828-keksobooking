@@ -12,7 +12,7 @@ var OFFER_TITLES = [
 var OFFER_TYPES = ['flat', 'house', 'bungalo'];
 var OFFER_TIMES = ['12:00', '13:00', '14:00'];
 var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var adsCount = 8;
+var ADS_COUNT = 8;
 var ads = []; //  создаем массив
 var pinMap = document.querySelector('.tokyo__pin-map');
 var dialogTitleImage = document.querySelector('.dialog__title > img');
@@ -64,7 +64,7 @@ var mockAddData = function (number) {
     },
     offer: {
       title: getRandomElement(OFFER_TITLES),
-      address: [pinTipX, pinTipY].join(),
+      address: [pinTipX, pinTipY].join(', '),
       price: getRandomInt(1000, 1000000),
       type: getRandomElement(OFFER_TYPES),
       rooms: getRandomInt(1, 5),
@@ -83,7 +83,7 @@ var mockAddData = function (number) {
 };
 
 var mockAdsData = function () {
-  for (var i = 0; i < adsCount; i++) {
+  for (var i = 0; i < ADS_COUNT; i++) {
     ads.push(mockAddData(i));
   }
 };
