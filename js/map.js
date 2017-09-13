@@ -64,7 +64,7 @@ var mockAddData = function (number) {
     },
     offer: {
       title: getRandomElement(OFFER_TITLES),
-      address: [pinTipX, pinTipY],
+      address: [pinTipX, pinTipY].join(),
       price: getRandomInt(1000, 1000000),
       type: getRandomElement(OFFER_TYPES),
       rooms: getRandomInt(1, 5),
@@ -131,7 +131,7 @@ var generateLodgeFeaturesDOM = function (arrayFeatures) { //  для получ�
 var renderLodgeTemplate = function (dialogData) {
   var lodgeContents = LODGE_TEMPLATE.cloneNode(true);
   lodgeContents.querySelector('.lodge__title').textContent = dialogData.offer.title;
-  lodgeContents.querySelector('.lodge__address').textContent = dialogData.offer.address.join();
+  lodgeContents.querySelector('.lodge__address').textContent = dialogData.offer.address;
   lodgeContents.querySelector('.lodge__price').innerHTML = dialogData.offer.price + '&#x20bd;' + '/ночь';
   lodgeContents.querySelector('.lodge__type').textContent = getLodgeTypeDescription(dialogData.offer.type);
   lodgeContents.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + dialogData.offer.guests + ' гостей в ' + dialogData.offer.rooms + ' комнатах';
