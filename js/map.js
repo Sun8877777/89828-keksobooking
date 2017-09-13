@@ -122,18 +122,18 @@ var generateLodgeFeaturesDOM = function (arrayFeatures) { //  для получ�
   return featuresContainer;
 };
 
-var lodgeDOM = function (dialogData) {
-  var elementDialogPanel = LODGE_TEMPLATE.cloneNode(true);
-  elementDialogPanel.querySelector('.lodge__title').textContent = dialogData.offer.title;
-  elementDialogPanel.querySelector('.lodge__address').textContent = dialogData.offer.address;
-  elementDialogPanel.querySelector('.lodge__price').innerHTML = dialogData.offer.price + '&#x20bd;' + '/ночь';
-  elementDialogPanel.querySelector('.lodge__type').textContent = getLodgeTypeDescription(dialogData.offer.type);
-  elementDialogPanel.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + dialogData.offer.guests + ' гостей в ' + dialogData.offer.rooms + ' комнатах';
-  elementDialogPanel.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + dialogData.offer.checkin + ', выезд до ' + dialogData.offer.checkout;
-  elementDialogPanel.querySelector('.lodge__features').appendChild(generateLodgeFeaturesDOM(dialogData));
-  elementDialogPanel.querySelector('.lodge__description').textConten = dialogData.offer.description;
+var renderLodgeTemplate = function (dialogData) {
+  var lodgeContents = LODGE_TEMPLATE.cloneNode(true);
+  lodgeContents.querySelector('.lodge__title').textContent = dialogData.offer.title;
+  lodgeContents.querySelector('.lodge__address').textContent = dialogData.offer.address;
+  lodgeContents.querySelector('.lodge__price').innerHTML = dialogData.offer.price + '&#x20bd;' + '/ночь';
+  lodgeContents.querySelector('.lodge__type').textContent = getLodgeTypeDescription(dialogData.offer.type);
+  lodgeContents.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + dialogData.offer.guests + ' гостей в ' + dialogData.offer.rooms + ' комнатах';
+  lodgeContents.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + dialogData.offer.checkin + ', выезд до ' + dialogData.offer.checkout;
+  lodgeContents.querySelector('.lodge__features').appendChild(generateLodgeFeaturesDOM(dialogData));
+  lodgeContents.querySelector('.lodge__description').textConten = dialogData.offer.description;
   dialogTitleImage.setAttribute('src', dialogData.author.avatar);
-  return elementDialogPanel;
+  return lodgeContents;
 };
 
 var removeContents = function (array) {
@@ -144,7 +144,7 @@ var removeContents = function (array) {
 
 var renderDialogPanel = function (number) { //  Функция очистки диалога и добавления новых данныъ из массива
   removeContents(dialogPanel);
-  dialogPanel.appendChild(lodgeDOM(ads[number]));
+  dialogPanel.appendChild(renderLodgeTemplate(ads[number]));
 };
 
 removeContents(pinMap);
