@@ -35,7 +35,7 @@ var getAvatarUrl = function (number) {
 };
 
 var getRandomElement = function (array) {
-  return array[getRandomInt(0, array.length - 1)];
+  return array[getRandomInt(0, array.length)];
 };
 
 var getRandomElements = function (array) {
