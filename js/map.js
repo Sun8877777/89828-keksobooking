@@ -20,11 +20,18 @@ var dialogPanel = document.querySelector('.dialog__panel');
 var LODGE_TEMPLATE = document.querySelector('#lodge-template').content;
 var PIN_WIDTH = 40;
 var PIN_HEIGHT = 40;
+var HALF_PIN_WIDTH = PIN_WIDTH / 2;
 var LODGE_TYPE_DESCRIPTIONS = {
   flat: 'Квартира',
   house: 'Дом',
   bungalo: 'Бунгало'
 };
+var pinElement;
+var pinElementDialog = document.querySelector('.dialog');
+var dialogClose = document.querySelector('.dialog__close');
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+dialogClose.setAttribute('tabindex', 0);
 
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -49,8 +56,7 @@ var getRandomElements = function (array) {
 };
 
 var mockAddData = function (number) {
-  var halfPinWidth = PIN_WIDTH / 2;
-  var pinTipX = getRandomInt(300 + halfPinWidth, 900 - halfPinWidth);
+  var pinTipX = getRandomInt(300 + HALF_PIN_WIDTH, 900 - HALF_PIN_WIDTH);
   var pinTipY = getRandomInt(100 + PIN_HEIGHT, 500);
   return {
     author: {
@@ -125,14 +131,14 @@ var generateLodgeFeaturesDOM = function (arrayFeatures) { //  для получ�
 var renderLodgeTemplate = function (dialogData) {
   var lodgeContents = LODGE_TEMPLATE.cloneNode(true);
   lodgeContents.querySelector('.lodge__title').textContent = dialogData.offer.title;
-  lodgeContents.querySelector('.lodge__address').textContent = dialogData.offer.address;
+  lodgeContents.querySelector('.lodge__address').textContent = dialogData.offer.address.join();
   lodgeContents.querySelector('.lodge__price').innerHTML = dialogData.offer.price + '&#x20bd;' + '/ночь';
   lodgeContents.querySelector('.lodge__type').textContent = getLodgeTypeDescription(dialogData.offer.type);
   lodgeContents.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + dialogData.offer.guests + ' гостей в ' + dialogData.offer.rooms + ' комнатах';
   lodgeContents.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + dialogData.offer.checkin + ', выезд до ' + dialogData.offer.checkout;
   lodgeContents.querySelector('.lodge__features').appendChild(generateLodgeFeaturesDOM(dialogData));
   lodgeContents.querySelector('.lodge__description').textConten = dialogData.offer.description;
-  dialogTitleImage.setAttribute('src', dialogData.author.avatar);
+  //dialogTitleImage.setAttribute('src', dialogData.author.avatar);
   return lodgeContents;
 };
 
@@ -145,19 +151,21 @@ var removeContents = function (array) {
 var renderDialogPanel = function (number) { //  Функция очистки диалога и добавления новых данныъ из массива
   removeContents(dialogPanel);
   dialogPanel.appendChild(renderLodgeTemplate(ads[number]));
+  dialogTitleImage.setAttribute('src', ads[number].author.avatar);
 };
-
+/*
 removeContents(pinMap);
 mockAdsData();
 renderAds();
 
-var pinElement = pinMap.querySelectorAll('.pin');
-var pinElementDialog = document.querySelector('.dialog');
-var dialogClose = document.querySelector('.dialog__close');
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
-dialogClose.setAttribute('tabindex', 0);
-
+pinElement = pinMap.querySelectorAll('.pin');
+*/
+//var pinElementDialog = document.querySelector('.dialog');
+//var dialogClose = document.querySelector('.dialog__close');
+//var ESC_KEYCODE = 27;
+//var ENTER_KEYCODE = 13;
+//dialogClose.setAttribute('tabindex', 0);
+//              обработчики событий
 var addClassTo = function (element, className) {
   return element.classList.add(className);
 };
@@ -215,6 +223,10 @@ var onEscKeyPress = function (event) {
 };
 
 var setEventHandlers = function () {
+  removeContents(pinMap);
+  mockAdsData();
+  renderAds();
+  pinElement = pinMap.querySelectorAll('.pin');
   for (var i= 0; i < pinElement.length; i++){
     pinElement[i].addEventListener('click', onPinClick);
     pinElement[i].addEventListener('keydown', onPinKeyEnter)
