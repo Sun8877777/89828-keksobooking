@@ -174,13 +174,15 @@ var deactivatePin = function (element) {
 };
 
 var showDialogPanel = function (element) {
-  if (element.classList.contains('hidden')){
+  if (element.classList.contains('hidden')) {
     removeClassFrom(element,'hidden');
   } 
 };
 
-var hideDialogPanel = function () {
-  pinElementDialog.classList.add('hidden');
+var hideDialogPanel = function (element) {
+  if (!(element.classList.contains('hidden'))) {
+    addClassTo(element, 'hidden');
+  }
 };
 
 var getDataNum = function (dataNum) { //получение номера из data -атрибута
@@ -203,7 +205,7 @@ var onPinKeyEnter = function (event) {
 
 var onCloseDialogClick = function () {
   deactivatePin(pinMap);
-  hideDialogPanel();
+  hideDialogPanel(pinElementDialog);
 };
 
 var onEscKeyPress = function (event) {
