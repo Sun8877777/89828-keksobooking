@@ -122,7 +122,7 @@ var generateLodgeFeaturesDOM = function (arrayFeatures) { //  для получ�
   return featuresContainer;
 };
 
-var dialogPanelDOM = function (dialogData) {
+var lodgeDOM = function (dialogData) {
   var elementDialogPanel = LODGE_TEMPLATE.cloneNode(true);
   elementDialogPanel.querySelector('.lodge__title').textContent = dialogData.offer.title;
   elementDialogPanel.querySelector('.lodge__address').textContent = dialogData.offer.address;
@@ -136,18 +136,18 @@ var dialogPanelDOM = function (dialogData) {
   return elementDialogPanel;
 };
 
-var clearDialog = function (array) {
+var removeContents = function (array) {
   for (var i = array.childNodes.length - 1; i >= 0; i--) {
     array.removeChild(array.childNodes[i]);
   }
 };
 
 var renderDialogPanel = function (number) { //  Функция очистки диалога и добавления новых данныъ из массива
-  clearDialog(dialogPanel);
-  dialogPanel.appendChild(dialogPanelDOM(ads[number]));
+  removeContents(dialogPanel);
+  dialogPanel.appendChild(lodgeDOM(ads[number]));
 };
 
-clearDialog(pinMap);
+removeContents(pinMap);
 mockAdsData();
 renderAds();
 
@@ -158,67 +158,68 @@ var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 dialogClose.setAttribute('tabindex', 0);
 
-var getActiveElement = function (element, className) {
+var addClassTo = function (element, className) {
   return element.classList.add(className);
 };
 
-var getRemoveElement = function (element, className) {
+var removeClassFrom = function (element, className) {
   return element.classList.remove(className);
-}
+};
+
 var deactivatePin = function (element) {
   var statusPin = element.querySelector('.pin--active');
   if (statusPin) {
-    getRemoveElement(statusPin,'pin--active');
+    removeClassFrom(statusPin,'pin--active');
   }
 };
 
-var renderDialogPanel = function (element) {
+var showDialogPanel = function (element) {
   if (element.classList.contains('hidden')){
-    getRemoveElement(element,'hidden');
+    removeClassFrom(element,'hidden');
   } 
 };
 
-var closeDialogPanel = function () {
+var hideDialogPanel = function () {
   pinElementDialog.classList.add('hidden');
 };
 
-var getNumbersDataNum = function (dataNum) { //получение номера из data -атрибута
+var getDataNum = function (dataNum) { //получение номера из data -атрибута
   return dataNum.getAttribute('data-num');
 };
 
 var onPinClick = function (event) {
-  var selectPinElement =  event.currentTarget;
+  var pin =  event.currentTarget;
   deactivatePin(pinMap);
-  renderDialogPanel(pinElementDialog);
-  getActiveElement(selectPinElement, 'pin--active');
-  renderDialogPanel(getNumbersDataNum(selectPinElement)); 
+  showDialogPanel(pinElementDialog);
+  addClassTo(pin, 'pin--active');
+  renderDialogPanel(getDataNum(pin)); 
 };  
 
-var onPinClickPressEnter = function (event) {
+var onPinKeyEnter = function (event) {
   if (event.keyCode === ENTER_KEYCODE) {
     onPinClick(event);
   }
 };
 
-var onDialogCloseClick = function () {
+var onCloseDialogClick = function () {
   deactivatePin(pinMap);
-  closeDialogPanel();
+  hideDialogPanel();
 };
 
-var onCloseDialogPressEsc = function (event) {
+var onEscKeyPress = function (event) {
   if (event.keyCode === ESC_KEYCODE) {
-    onDialogCloseClick();
+    onCloseDialogClick();
   }
 };
 
-var setEventHandlingPinElem = function () {
+var setEventHandlers = function () {
   for (var i= 0; i < pinElement.length; i++){
     pinElement[i].addEventListener('click', onPinClick);
-    pinElement[i].addEventListener('keydown', onPinClickPressEnter)
+    pinElement[i].addEventListener('keydown', onPinKeyEnter)
   };
 
-  dialogClose.addEventListener('click', onDialogCloseClick);
-  document.addEventListener('keydown', onCloseDialogPressEsc);
+  dialogClose.addEventListener('click', onCloseDialogClick);
+  document.addEventListener('keydown', onEscKeyPress);
 };
 
-setEventHandlingPinElem();
+setEventHandlers();
