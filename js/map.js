@@ -184,7 +184,7 @@ var deactivatePin = function (element) {
 var showElement = function (element) {
   if (element.classList.contains('hidden')) {
     removeClassFrom(element,'hidden');
-  } 
+  }
 };
 
 var hideElement = function (element) {
@@ -202,8 +202,8 @@ var onPinClick = function (event) {
   deactivatePin(pinMap);
   showElement(pinElementDialog);
   addClassTo(pin, 'pin--active');
-  renderDialogPanel(getDataNum(pin)); 
-};  
+  renderDialogPanel(getDataNum(pin));
+};
 
 var onPinKeyEnter = function (event) {
   if (event.keyCode === ENTER_KEYCODE) {
